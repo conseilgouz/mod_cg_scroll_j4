@@ -1,0 +1,113 @@
+/**
+* CG Scroll - Joomla Module 
+* Version			: 4.1.1
+* Package			: Joomla 3.10.x - 4.0
+* copyright 		: Copyright (C) 2021 ConseilGouz. All rights reserved.
+* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+*/
+.cg-scroll-title{
+		font-size:14px;
+		line-height:16px;
+		width:90%;
+} 
+.cg_scroll .cg-scroll-feed-img {
+	margin-bottom:0.5em;
+	width:95%
+}
+#vmarquee{padding: 0;
+		margin: 0;
+		list-style-type: none;
+}	
+ul.cg-scroll-items{	
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+ul.cg-scroll-items li {
+	padding: 0;
+	margin: 2px;
+}
+
+#sfdmarqueecontainer {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+} 
+#toDirection {
+margin-top: -50px;
+position: relative;
+left: 95%;
+cursor: pointer;
+display: none;
+float:left
+} 
+#toDirection .icon-dir-left:before {
+display: inline-block;
+font-family: fontawesome;
+content: "\f0a8";
+font-size:28px;
+color:#444;
+opacity:0.6;
+-webkit-transition : all 0.3s ease-in-out;
+-moz-transition : all 0.3s ease-in-out;
+-ms-transition : all 0.3s ease-in-out;
+-o-transition : all 0.3s ease-in-out;
+transition : all 0.3s ease-in-out;
+} 
+#toDirection:hover .icon-dir-left:before {
+opacity:0.8;
+} 
+#toDirection .icon-dir-right:before {
+display: inline-block;
+font-family: fontawesome;
+content: "\f0a9";
+font-size:28px;
+color:#444;
+opacity:0.6;
+-webkit-transition : all 0.3s ease-in-out;
+-moz-transition : all 0.3s ease-in-out;
+-ms-transition : all 0.3s ease-in-out;
+-o-transition : all 0.3s ease-in-out;
+transition : all 0.3s ease-in-out;
+} 
+#toDirection:hover .icon-dir-right:before {
+opacity:0.8;
+}
+#toDirection .icon-dir-down:before {
+display: inline-block;
+font-family: fontawesome;
+content: "\f0ab";
+font-size:28px;
+color:#444;
+opacity:0.6;
+-webkit-transition : all 0.3s ease-in-out;
+-moz-transition : all 0.3s ease-in-out;
+-ms-transition : all 0.3s ease-in-out;
+-o-transition : all 0.3s ease-in-out;
+transition : all 0.3s ease-in-out;
+} 
+#toDirection:hover .icon-dir-down:before {
+opacity:0.8;
+} 
+#toDirection .icon-dir-up:before {
+display: inline-block;
+font-family: fontawesome;
+content: "\f0aa";
+font-size:28px;
+color:#444;
+opacity:0.6;
+-webkit-transition : all 0.3s ease-in-out;
+-moz-transition : all 0.3s ease-in-out;
+-ms-transition : all 0.3s ease-in-out;
+-o-transition : all 0.3s ease-in-out;
+transition : all 0.3s ease-in-out;
+}
+#toDirection:hover .icon-dir-up:before {
+opacity:0.8;
+}
+#toDirectionText{
+display: none;
+}
+#toDirection span {
+color: #FFFFFF;
+}

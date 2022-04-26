@@ -1,0 +1,24 @@
+<changelogs>
+	<changelog>
+		<element>mod_cg_scroll</element>
+		<type>Module</type>
+		<version>4.1.1</version>
+        <note>
+            <item>Update : 18/10/2021</item>
+        </note>
+        <fix>
+            <item>Joomla Version check error in helper</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>mod_cg_scroll</element>
+		<type>Module</type>
+		<version>4.1.0</version>
+        <note>
+            <item>Update : 04/10/2021</item>
+        </note>
+        <fix>
+            <item>full Joomla 4 compatibility</item>
+        </fix>
+	</changelog>
+</changelogs>

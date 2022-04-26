@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="4.x" client="site" method="upgrade">
+	<name>CG Scroll</name>
+	<author>ConseilGouz</author>
+	<creationDate>October 2021</creationDate>
+	<copyright>Copyright (C) 2021 ConseilGouz. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
+	<authorUrl>www.conseilgouz.com</authorUrl>
+	<version>4.1.1</version>
+	<description>CGSCROLLDESC</description>
+	<namespace path="src">ConseilGouz\Module\CGScroll</namespace>
+	<scriptfile>script.php</scriptfile>
+	<changelogurl>https://www.conseilgouz.com/updates/mod_cg_scroll_changelog.xml</changelogurl>
+	<files>
+		<filename module="mod_cg_scroll">mod_cg_scroll.php</filename>
+		<filename>index.html</filename>
+		<folder>src</folder>
+		<folder>tmpl</folder>
+	</files>
+	<media destination="mod_cg_scroll" folder="media">
+		<folder>js</folder>
+		<folder>css</folder>
+		<filename>index.html</filename>
+	</media>
+	<languages>
+		<language tag="en-GB">language/en-GB/mod_cg_scroll.ini</language>
+		<language tag="eb-GB">language/en-GB/mod_cg_scroll.sys.ini</language>
+		<language tag="fr-FR">language/fr-FR/mod_cg_scroll.ini</language>
+		<language tag="fr-FR">language/fr-FR/mod_cg_scroll.sys.ini</language>
+	</languages>
+	
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="sf_type"
+					type="list"
+					class="list"
+					label="SF_TYPE"
+					default="FEED"
+					description="SF_TYPEDESC">
+					<option
+						value="ARTICLE">SF_TYPEARTICLE</option>
+					<option
+						value="CATEGORY">SF_TYPECATEGORY</option>
+					<option
+						value="LATEST">SF_TYPELATEST</option>
+					<option
+						value="FEED">SF_TYPEFEED</option>
+				</field>	
+				<field	showon="sf_type:ARTICLE" name="article_id" type="sql" default="1"
+				label="SF_ARTICLE"	description="SF_ARTICLEDESC"
+				query="SELECT id as article_id, title as value FROM #__content"
+				key_field="article_id"
+				value_field="value"	/>
+				<field name="categories_id" showon="sf_type:LATEST"
+				type="category" extension="com_content" multiple="true"
+				label="SF_CATEGORY" description="SF_CATEGORY" 	/>
+				<field name="category_id" showon="sf_type:CATEGORY"
+				type="category" extension="com_content" 
+				label="SF_CATEGORY" description="SF_CATEGORY" 	/>
+   				<field name="text_type" showon="sf_type:ARTICLE,CATEGORY,LATEST"
+				type="list" default="both" 
+				label="ARTICLEINTRO" description="ARTICLEINTRODESC">
+					<option value="none">Rien</option>
+					<option value="introtext">Intro</option>
+					<option value="fulltext">Article</option>
+					<option value="both">Intro + Article</option>
+				</field>
+				<field	showon="sf_type:ARTICLE,CATEGORY,LATEST" name="articletitle" type="radio"
+					class="btn-group btn-group-yesno" default="0"
+					label="ARTICLETITLE" description="ARTICLETITLEDESC">
+					<option	value="1">JYES</option>
+					<option	value="0">JNO</option>
+				</field>
+				<field
+					showon="sf_type:ARTICLE,CATEGORY,LATEST" name="articledatepub"	type="radio"
+					class="btn-group btn-group-yesno"	default="0"
+					label="FEEDDATEPUB"	description="FEEDDATEPUBDESC">
+					<option	value="1">JYES</option>
+					<option	value="0">JNO</option>
+				</field>	
+				<field	showon="sf_type:ARTICLE,CATEGORY,LATEST" name="articleimg" type="radio"
+					class="btn-group btn-group-yesno" default="0"
+					label="ARTICLEIMG" description="ARTICLEIMGDESC">
+					<option	value="1">JYES</option>
+					<option	value="0">JNO</option>
+				</field>
+				<field	showon="sf_type:ARTICLE,CATEGORY,LATEST" name="char_count"	type="text"
+					size="50" default="0"
+					label="FEEDPARAMCHARCOUNT"	description="FEEDPARAMCHARCOUNTDESC" />
+				<field
+					showon="sf_type:ARTICLE,CATEGORY,LATEST" name="articleclean"	type="radio"
+					class="btn-group btn-group-yesno"	default="1"
+					label="FEEDCLEAN"	description="FEEDCLEANDESC">
+					<option	value="1">JYES</option>
+					<option	value="0">JNO</option>
+				</field>	
+					
+				<field  showon="sf_type:CATEGORY,LATEST" name="catitems" type="text"
+					default="3"	label="CATITEMS" description="CATITEMSDESC" />
+				<field  showon="sf_type:LATEST"	name="ordering"	type="list"
+					default="m_dsc"	label="ITEMSORDER"	description="ITEMSORDERDESC">
+					<option	value="m_dsc">SF_M_DSC</option>
+					<option	value="c_dsc">SF_C_DSC</option>
+					<option	value="p_dsc">SF_P_DSC</option>
+					<option	value="random">SF_RANDOM</option>
+				</field>
+				<field	showon="sf_type:FEED" name="rssurl"	type="url"
+					size="50"	filter="url"	validate="url"
+					label="FEEDURL"	description="FEEDURLDESC" />
+				<field	name="direction"	type="radio"	class="btn-group"
+					default="1"	label="DIRECTION"	description="DIRECTIONDESC">
+					<option	value="1">JBASENHAUT</option>
+					<option	value="0">JDROITEGAUCHE</option>
+				</field>
+				<field 	showon="direction:0" name="sf_width" 	type="text" 
+					size="50" 	default="200" 
+					label="SF_WIDTH" 	description="SF_WIDTHDESC" />
+				<field 	showon="direction:1"	name="sf_height" 
+					type="text" 	size="50" 	default="200" 
+					label="SF_HEIGHT" 	description="SF_HEIGHTDESC" />
+				<field 	name="sf_delay" 	type="integer" 	default="2"
+					label="SF_DELAY" 	description="SF_DELAYDESC" 
+					first="1" last="30" step="1"	/>	
+				<field name="sf_speed" 	type="integer" 	default="1"
+					label="SF_SPEED" description="SF_SPEEDDESC" 
+					first="1" last="10" step="1" />	
+				<field	name="sf_pause"	type="radio"
+					class="btn-group btn-group-yesno"	default="1"
+					label="SF_PAUSE"	description="SF_PAUSEDESC">
+					<option	value="1">JYES</option>
+					<option	value="0">JNO</option>
+				</field>	
+				<field name="tags" showon="sf_type:FEED" type="tag" 
+					label="FEEDFILTER" 	description="FEEDFILTERDESC" 
+					mode="nested" multiple="true" 
+					custom="deny"/>	
+				<field showon="sf_type:FEED"	name="rssitems"	type="text"
+					default="3"	label="FEEDITEMS"	description="FEEDITEMSDESC" />
+				<field showon="sf_type:FEED" name="rsstitlelgth"	type="text"
+					default="60" label="FEEDTITLELGTH"	description="FEEDTITLELGTHDESC" />
+				<field showon="sf_type:FEED" name="rssitemdesc"	type="radio"
+					class="btn-group btn-group-yesno"	default="1"
+					label="FEEDPARAMITEM"	description="FEEDPARAMITEMDESC">
+					<option	value="1">JYES</option>
+					<option	value="0">JNO</option>
+				</field>
+				<field showon="sf_type:FEED" name="sf_w_img" type="text" 
+					size="50" 	default="100%" 
+					label="sf_WIDTH_IMG" description="SF_WIDTH_IMGDESC" />
+				<field	showon="sf_type:FEED" name="word_count"	type="text"
+					size="50"	default="0"
+					label="FEEDPARAMWORDCOUNT"	description="FEEDPARAMWORDCOUNTDESC" />
+				<field	name="rssupdn"	type="radio" class="btn-group btn-group-yesno"	default="1"
+					label="UPDNFEED" description="UPDNFEEDDESC">
+					<option	value="1">JYES</option>
+					<option	value="0">JNO</option>
+				</field>	
+				<field	name="rssrtl"	type="radio"	class="btn-group btn-group-yesno"	default="0"
+					label="RTLFEED"	description="RTLFEEDDESC">
+					<option	value="1">JYES</option>
+					<option	value="0">JNO</option>
+				</field>	
+				<field	showon="sf_type:FEED"	name="rsstitle"	type="radio"
+					class="btn-group btn-group-yesno"	default="0"
+					label="FEEDTITLE" description="FEEDTITLEDESC">
+					<option	value="1">JYES</option>
+					<option	value="0">JNO</option>
+				</field>
+				<field	showon="sf_type:FEED"	name="rssdesc"	type="radio"
+					class="btn-group btn-group-yesno"	default="0"
+					label="FEEDDESC"	description="FEEDDESCDESC">
+					<option	value="1">JYES</option>
+					<option	value="0">JNO</option>
+				</field>
+				<field	showon="sf_type:FEED"	name="rssimage"	type="radio"
+					class="btn-group btn-group-yesno"	default="0"
+					label="FEEDIMG" 	description="FEEDIMGDESC">
+					<option	value="1">JYES</option>
+					<option	value="0">JNO</option>
+				</field>	
+				<field	showon="sf_type:FEED"	name="rssdatesup"	type="radio"
+					class="btn-group btn-group-yesno"	default="0"
+					label="FEEDDATESUP"	description="FEEDDATESUPDESC">
+					<option	value="1">JYES</option>
+					<option	value="0">JNO</option>
+				</field>
+				<field	showon="sf_type:FEED"	name="rssdatepub"	type="radio"
+					class="btn-group btn-group-yesno"	default="0"
+					label="FEEDDATEPUB"	description="FEEDDATEPUBDESC">
+					<option	value="1">JYES</option>
+					<option	value="0">JNO</option>
+				</field>	
+				<field	showon="sf_type:FEED" name="rssdaterev"	type="radio"
+					class="btn-group btn-group-yesno"	default="0"
+					label="FEEDDATEREV"	description="FEEDDATEREVDESC">
+					<option	value="1">JYES</option>
+					<option	value="0">JNO</option>
+				</field>	
+			</fieldset>
+			<fieldset name="advanced">
+				<field	name="moduleclass_sfx"	type="text"
+					label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+					description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+	<updateservers>
+	<server type="extension" name="mod_cg_scroll" priority="1">https://www.conseilgouz.com/updates/cg_scroll_update.xml</server>
+	</updateservers>
+</extension>	
