@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Scroll Module  - Joomla 4.0.0 Module 
-* Version			: 4.1.1
+* Version			: 4.1.2
 * Package			: CG Scroll
 * copyright 		: Copyright (C) 2021 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
