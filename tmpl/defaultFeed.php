@@ -1,9 +1,9 @@
 <?php
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.1.2
-* Package			: Joomla 3.10.x - 4.0
-* copyright 		: Copyright (C) 2021 ConseilGouz. All rights reserved.
+* Version			: 4.1.4
+* Package			: Joomla 3.10.x - 4.x
+* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
 */
 
@@ -113,7 +113,7 @@ else {
 					}
 				}
 			}
-			$uneDate = strftime('%Y%m%d',strtotime($feed[$i]->publishedDate));
+			$uneDate = date('Ymd',strtotime($feed[$i]->publishedDate));
 			if (( ($uneDate > date('Ymd') && $params->get('rssdatesup')) || (!($params->get('rssdatesup')) )) && !$ignore){
 			?>
 			<?php
@@ -124,7 +124,7 @@ else {
 			?>
 				<li>
 					<?php // setlocale(LC_TIME, 'fr_FR.utf8','fra');
-					    $laDate = strftime('%d/%m/%Y',strtotime($feed[$i]->publishedDate));
+					    $laDate = date('d/m/Y',strtotime($feed[$i]->publishedDate));
 						$letitle = $feed[$i]->title;
 						if ($params->get('rsstitlelgth',60) > 0) {
 						$letitle = JHtml::_('string.truncate', $feed[$i]->title, $params->get('rsstitlelgth',60), $noSplit = false, $allowHtml = false);

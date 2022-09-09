@@ -1,11 +1,11 @@
 <?php
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.1.2
-* Package			: Joomla 3.10.x - 4.0
-* copyright 		: Copyright (C) 2021 ConseilGouz. All rights reserved.
+* Version			: 4.1.4
+* Package			: Joomla 3.10.x - 4.x
+* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
-* Updated on        : September 2020
+* Updated on        : September 2022
 */
 // no direct access
 defined('_JEXEC') or die;
@@ -76,7 +76,7 @@ JLoader::registerNamespace('ConseilGouz\Module\CGScroll\Site', JPATH_SITE . '/mo
 			} else if ($text_type=='both') {
 				$text = $article[$i]->introtext.$article[$i]->fulltext;
 			}
-			$uneDate = strftime('%d/%m/%Y',strtotime($article[$i]->modified));
+			$uneDate = date('d/m/Y',strtotime($article[$i]->modified));
 			?>
 				<li>
 				<a href="<?php echo $article[$i]->link;?>">

@@ -2,6 +2,17 @@
 	<changelog>
 		<element>mod_cg_scroll</element>
 		<type>Module</type>
+		<version>4.1.4</version>
+        <note>
+            <item>Update : 09/09/2022</item>
+        </note>
+        <fix>
+            <item>PHP 8.1 : strftime deprecated</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>mod_cg_scroll</element>
+		<type>Module</type>
 		<version>4.1.2</version>
         <note>
             <item>Update : 20/07/2022</item>
