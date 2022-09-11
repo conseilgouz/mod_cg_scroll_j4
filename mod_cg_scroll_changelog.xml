@@ -2,6 +2,17 @@
 	<changelog>
 		<element>mod_cg_scroll</element>
 		<type>Module</type>
+		<version>4.1.5</version>
+        <note>
+            <item>Update : 11/09/2022</item>
+        </note>
+        <fix>
+            <item>wrong version in mod_cg_scroll.xml</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>mod_cg_scroll</element>
+		<type>Module</type>
 		<version>4.1.4</version>
         <note>
             <item>Update : 09/09/2022</item>
