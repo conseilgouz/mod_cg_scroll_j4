@@ -9,6 +9,9 @@
         <fix>
             <item>Joomla 5.x compatibilty</item>
         </fix>
+		<change>
+			<item>Use font awesome 6</item>
+		</change>
 	</changelog>
 	<changelog>
 		<element>mod_cg_scroll</element>

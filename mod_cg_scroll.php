@@ -48,7 +48,7 @@ HTMLHelper::_('jquery.framework');
 if ($sf_w_img>='55'): $margin_item_image='padding: 0 '.$sf_wimg_responsive.'% ;'; endif; 
 if ($sf_w_img<='54'): $margin_item_image="margin-right:5px; float:left;"; endif;         
 //2.2.19: call fontawesome on cdn
-$document->addStyleSheet("//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
+// $document->addStyleSheet("//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
 $document->addScript($modulefield.'js/init.js');
 $document->addScript($modulefield.'js/scroll.js');
 $document->addStyleSheet($modulefield.'css/scroll.css');

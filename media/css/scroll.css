@@ -43,7 +43,7 @@ float:left
 } 
 #toDirection .icon-dir-left:before {
 display: inline-block;
-font-family: fontawesome;
+font-family: 'Font Awesome 6 Free';
 content: "\f0a8";
 font-size:28px;
 color:#444;
@@ -59,7 +59,7 @@ opacity:0.8;
 } 
 #toDirection .icon-dir-right:before {
 display: inline-block;
-font-family: fontawesome;
+font-family: 'Font Awesome 6 Free';
 content: "\f0a9";
 font-size:28px;
 color:#444;
@@ -75,7 +75,7 @@ opacity:0.8;
 }
 #toDirection .icon-dir-down:before {
 display: inline-block;
-font-family: fontawesome;
+font-family: 'Font Awesome 6 Free';
 content: "\f0ab";
 font-size:28px;
 color:#444;
@@ -91,7 +91,7 @@ opacity:0.8;
 } 
 #toDirection .icon-dir-up:before {
 display: inline-block;
-font-family: fontawesome;
+font-family: 'Font Awesome 6 Free';
 content: "\f0aa";
 font-size:28px;
 color:#444;

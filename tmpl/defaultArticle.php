@@ -10,6 +10,7 @@
 // no direct access
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Layout\LayoutHelper;
 use ConseilGouz\Module\CGScroll\Site\Helper\CGScrollHelper;
 
 JLoader::registerNamespace('ConseilGouz\Module\CGScroll\Site', JPATH_SITE . '/modules/mod_cg_scroll/src', false, false, 'psr4');
@@ -89,7 +90,7 @@ JLoader::registerNamespace('ConseilGouz\Module\CGScroll\Site', JPATH_SITE . '/mo
 				</h5></a>
 				<?php
 				if ($params->get('articleimg',0) == 1) { // image d'intro
-					echo JLayoutHelper::render('joomla.content.intro_image', $article[$i]);
+					echo LayoutHelper::render('joomla.content.intro_image', $article[$i]);
 				}
 				$text = CGScrollHelper::truncate($text, $params->get('char_count',10),false);
 				echo str_replace('&apos;', "'", $text);

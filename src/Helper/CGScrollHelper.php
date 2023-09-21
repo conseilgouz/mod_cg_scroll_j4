@@ -1,11 +1,10 @@
 <?php
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.1.0
-* Package			: Joomla 4.0
-* copyright 		: Copyright (C) 2021 ConseilGouz. All rights reserved.
+* Version			: 4.2.0
+* Package			: Joomla 4.x/5.x
+* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
-* Updated on        : September 2020
 */
 // no direct access
 namespace ConseilGouz\Module\CGScroll\Site\Helper;
@@ -56,7 +55,7 @@ class CGScrollHelper {
 		// Get an instance of the generic articles model
 		$j = new Version();
 		$version=substr($j->getShortVersion(), 0,1); 
-		if ($version == "4") { // Joomla 4.0
+		if ($version >= "4") { // >= Joomla 4.0
 			$model   = new ArticleModel(array('ignore_request' => true));
 		} else { // Joomla 3.x
 			\JLoader::register('ContentModelArticles', JPATH_SITE . '/components/com_content/models/article.php');
@@ -108,7 +107,7 @@ class CGScrollHelper {
 		if ($access || in_array($item->access, $authorised))
 		{
 			// We know that user has the privilege to view the article
-				if ($version == "4") { // Joomla 4.0
+				if ($version >= "4") { // >= Joomla 4.0
 					$item->link = Route::_(RouteHelper::getArticleRoute($item->slug, $item->catid, $item->language));
 				} else {
 					$item->link = \JRoute::_(\ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language));
@@ -147,7 +146,7 @@ class CGScrollHelper {
 		// Get an instance of the generic articles model
 		$j = new Version();
 		$version=substr($j->getShortVersion(), 0,1); 
-		if ($version == "4") { // Joomla 4.0
+		if ($version >= "4") { // >= Joomla 4.0
 			$articles     = new ArticlesModel(array('ignore_request' => true));
 		} else {
 		// Joomla 3.x
@@ -196,8 +195,11 @@ class CGScrollHelper {
 
 			if ($access || in_array($item->access, $authorised))
 			{
-				// We know that user has the privilege to view the article
-				$item->link = Route::_(\ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language));
+				if ($version >= "4") { // >= Joomla 4.0
+					$item->link = Route::_(RouteHelper::getArticleRoute($item->slug, $item->catid, $item->language));
+				} else {
+					$item->link = \JRoute::_(\ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language));
+				}
 			}
 			else
 			{
@@ -227,7 +229,11 @@ class CGScrollHelper {
 
 			if ($item->catid)
 			{
-				$item->displayCategoryLink  = Route::_(\ContentHelperRoute::getCategoryRoute($item->catid));
+				if ($version >= "4") { // >= Joomla 4.0
+					$item->displayCategoryLink = Route::_(RouteHelper::getCategoryRoute($item->catid));
+				} else {
+					$item->displayCategoryLink = \JRoute::_(\ContentHelperRoute::getCategoryRoute($item->catid,));
+				}
 				$item->displayCategoryTitle = $show_category ? '<a href="' . $item->displayCategoryLink . '">' . $item->category_title . '</a>' : '';
 			}
 			else
@@ -282,7 +288,7 @@ class CGScrollHelper {
 		// Get an instance of the generic articles model
 		$j = new Version();
 		$version=substr($j->getShortVersion(), 0,1); 
-		if ($version == "4") { // Joomla 4.0
+		if ($version >= "4") { // Joomla 4.0
 			$model    = new ArticlesModel(array('ignore_request' => true));
 		} else {// Joomla 3.x
 			\JLoader::register('ContentModelArticles', JPATH_SITE . '/components/com_content/models/articles.php');
@@ -359,7 +365,7 @@ class CGScrollHelper {
 			if ($access || in_array($item->access, $authorised))
 			{
 				// We know that user has the privilege to view the article
-				if ($version == "4") { // Joomla 4.0
+				if ($version >= "4") { // Joomla 4.0
 					$item->link = Route::_(RouteHelper::getArticleRoute($item->slug, $item->catid, $item->language));
 				} else {
 					$item->link = \JRoute::_(\ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language));

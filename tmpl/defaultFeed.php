@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.1.4
+* Version			: 4.2.0 
 * Package			: Joomla 3.10.x - 4.x
 * copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -10,6 +10,8 @@
 // no direct access
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Filter\OutputFilter;
 use ConseilGouz\Module\CGScroll\Site\Helper\CGScrollHelper;
 
 JLoader::registerNamespace('ConseilGouz\Module\CGScroll\Site', JPATH_SITE . '/modules/mod_cg_scroll/src', false, false, 'psr4');
@@ -127,7 +129,7 @@ else {
 					    $laDate = date('d/m/Y',strtotime($feed[$i]->publishedDate));
 						$letitle = $feed[$i]->title;
 						if ($params->get('rsstitlelgth',60) > 0) {
-						$letitle = JHtml::_('string.truncate', $feed[$i]->title, $params->get('rsstitlelgth',60), $noSplit = false, $allowHtml = false);
+						$letitle = HTMLHelper::_('string.truncate', $feed[$i]->title, $params->get('rsstitlelgth',60), $noSplit = false, $allowHtml = false);
 						}
 						if (!empty($uri)) : ?>
 						<h5 class="feed-link">
@@ -142,7 +144,7 @@ else {
 						<?php
 							if ($params->get('rssimage', 1) == 0) {  // 2.2.8
 							// Strip the images.
-							   $text = JFilterOutput::stripImages($text);
+							   $text = OutputFilter::stripImages($text);
                             }
 							// $text = JHtml::_('string.truncate', $text, $params->get('word_count'));
                             $text = CGScrollHelper::truncateString($text,$params->get('word_count'));
