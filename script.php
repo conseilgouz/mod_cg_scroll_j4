@@ -1,6 +1,6 @@
 <?php
 /**
-* CG Scroll Module  - Joomla 4.0.0 Module 
+* CG Scroll Module  - Joomla 4.x/5.x Module 
 * Version			: 4.1.2
 * Package			: CG Scroll
 * copyright 		: Copyright (C) 2021 ConseilGouz. All rights reserved.
@@ -10,9 +10,9 @@
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Filesystem\Folder;
+use Joomla\Filesystem\Folder;
 use Joomla\CMS\Version;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 
 class mod_cg_scrollInstallerScript
 {
@@ -23,6 +23,7 @@ class mod_cg_scrollInstallerScript
 	private $extname                 = 'cg_scroll';
 	private $previous_version        = '';
 	private $dir           = null;
+	private $lang;
 	private $installerName = 'cg_flipinstaller';
 	public function __construct()
 	{
@@ -92,7 +93,7 @@ class mod_cg_scrollInstallerScript
 		$j = new Version();
 		$version=$j->getShortVersion(); 
 		$version_arr = explode('.',$version);
-		if (($version_arr[0] == "4") || (($version_arr[0] == "3") && ($version_arr[1] == "10"))) {
+		if (($version_arr[0] >= "4") || (($version_arr[0] == "3") && ($version_arr[1] == "10"))) {
 			// Delete 3.9 and older language files
 			$langFiles = [
 				sprintf("%s/language/en-GB/en-GB.mod_%s.ini", JPATH_SITE, $this->extname),
@@ -143,7 +144,7 @@ class mod_cg_scrollInstallerScript
 	}
 	private function uninstallInstaller()
 	{
-		if ( ! JFolder::exists(JPATH_PLUGINS . '/system/' . $this->installerName)) {
+		if ( ! is_dir(JPATH_PLUGINS . '/system/' . $this->installerName)) {
 			return;
 		}
 		$this->delete([

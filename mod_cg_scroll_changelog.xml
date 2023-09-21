@@ -2,6 +2,17 @@
 	<changelog>
 		<element>mod_cg_scroll</element>
 		<type>Module</type>
+		<version>4.2.0</version>
+        <note>
+            <item>Update : 21/09/2023</item>
+        </note>
+        <fix>
+            <item>Joomla 5.x compatibilty</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>mod_cg_scroll</element>
+		<type>Module</type>
 		<version>4.1.5</version>
         <note>
             <item>Update : 11/09/2022</item>

@@ -2,12 +2,12 @@
 <extension type="module" version="4.x" client="site" method="upgrade">
 	<name>CG Scroll</name>
 	<author>ConseilGouz</author>
-	<creationDate>October 2021</creationDate>
-	<copyright>Copyright (C) 2021 ConseilGouz. All rights reserved.</copyright>
+	<creationDate>2023-09-21</creationDate>
+	<copyright>Copyright (C) 2023 ConseilGouz. All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>www.conseilgouz.com</authorUrl>
-	<version>4.1.5</version>
+	<version>4.2.0</version>
 	<description>CGSCROLLDESC</description>
 	<namespace path="src">ConseilGouz\Module\CGScroll</namespace>
 	<scriptfile>script.php</scriptfile>
@@ -32,7 +32,8 @@
 	
 	<config>
 		<fields name="params">
-			<fieldset name="basic">
+			<fieldset name="basic" addfieldprefix="ConseilGouz\Module\CGPopup\Site\Field">
+				<field name="version" type="version"  margintop="-3em" extension="mod_cg_scroll"/>	
 				<field
 					name="sf_type"
 					type="list"
