@@ -46,6 +46,7 @@ float:left
 #toDirection .icon-dir-left:before {
 display: inline-block;
 content: "\f0a8";
+font-family: fontawesome;
 font-size:28px;
 color:#444;
 opacity:0.6;
@@ -60,6 +61,7 @@ opacity:0.8;
 } 
 #toDirection .icon-dir-right:before {
 display: inline-block;
+font-family: fontawesome;
 content: "\f0a9";
 font-size:28px;
 color:#444;
@@ -76,6 +78,7 @@ opacity:0.8;
 #toDirection .icon-dir-down:before {
 display: inline-block;
 content: "\f0ab";
+font-family: fontawesome;
 font-size:28px;
 color:#444;
 opacity:0.6;
@@ -91,6 +94,7 @@ opacity:0.8;
 #toDirection .icon-dir-up:before {
 display: inline-block;
 content: "\f0aa";
+font-family: fontawesome;
 font-size:28px;
 color:#444;
 opacity:0.6;

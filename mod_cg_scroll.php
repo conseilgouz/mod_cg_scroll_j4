@@ -1,9 +1,9 @@
 <?php
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.1.2
-* Package			: Joomla 3.10.x - 4.0
-* copyright 		: Copyright (C) 2021 ConseilGouz. All rights reserved.
+* Version			: 4.2.0
+* Package			: Joomla 3.10.x - 4.x - 5.x
+* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
 */
 // no direct access
@@ -12,6 +12,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ModuleHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Version;
 use ConseilGouz\Module\CGScroll\Site\Helper\CGScrollHelper;
 
 JLoader::registerNamespace('ConseilGouz\Module\CGScroll\Site', JPATH_SITE . '/modules/mod_cg_scroll/src', false, false, 'psr4');
@@ -47,11 +48,17 @@ HTMLHelper::_('jquery.framework');
 
 if ($sf_w_img>='55'): $margin_item_image='padding: 0 '.$sf_wimg_responsive.'% ;'; endif; 
 if ($sf_w_img<='54'): $margin_item_image="margin-right:5px; float:left;"; endif;         
-//2.2.19: call fontawesome on cdn
-// $document->addStyleSheet("//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
+
+$j = new Version();
+$version=substr($j->getShortVersion(), 0,1); 
+if ($version < "4") { // Joomla 3.x
+	$document->addStyleSheet("//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
+	$document->addStyleSheet($modulefield.'css/scroll_j3.css');
+} else {
+	$document->addStyleSheet($modulefield.'css/scroll.css');
+}
 $document->addScript($modulefield.'js/init.js');
 $document->addScript($modulefield.'js/scroll.js');
-$document->addStyleSheet($modulefield.'css/scroll.css');
 
 if ($sf_type == 'FEED') {
 	$feed = CGScrollHelper::getFeed($params);
