@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Scroll Module  - Joomla 4.x/5.x Module 
-* Version			: 4.2.1
+* Version			: 4.2.2
 * Package			: CG Scroll
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
@@ -117,7 +117,7 @@ class mod_cg_scrollInstallerScript
 		// Simple Isotope is now on Github
 		$query = $db->getQuery(true)
 			->delete('#__update_sites')
-			->where($db->quoteName('location') . ' like "%conseilgouz.com/updates/mod_cg_scroll%"');
+			->where($db->quoteName('location') . ' like "%conseilgouz.com/updates/cg_scroll%"');
 		$db->setQuery($query);
 		$db->execute();
 		
