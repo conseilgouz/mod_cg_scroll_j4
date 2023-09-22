@@ -2,16 +2,16 @@
 <extension type="module" version="4.x" client="site" method="upgrade">
 	<name>CG Scroll</name>
 	<author>ConseilGouz</author>
-	<creationDate>2023-09-21</creationDate>
+	<creationDate>2023-09-22</creationDate>
 	<copyright>Copyright (C) 2023 ConseilGouz. All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>www.conseilgouz.com</authorUrl>
-	<version>4.2.0</version>
+	<version>4.2.1</version>
 	<description>CGSCROLLDESC</description>
 	<namespace path="src">ConseilGouz\Module\CGScroll</namespace>
 	<scriptfile>script.php</scriptfile>
-	<changelogurl>https://www.conseilgouz.com/updates/mod_cg_scroll_changelog.xml</changelogurl>
+	<changelogurl>https://raw.githubusercontent.com/conseilgouz/mod_cg_scroll_j4/master/mod_cg_scroll_changelog.xml</changelogurl>
 	<files>
 		<filename module="mod_cg_scroll">mod_cg_scroll.php</filename>
 		<filename>index.html</filename>
@@ -209,6 +209,6 @@
 		</fields>
 	</config>
 	<updateservers>
-	<server type="extension" name="mod_cg_scroll" priority="1">https://www.conseilgouz.com/updates/cg_scroll_update.xml</server>
+	<server type="extension" name="mod_cg_scroll" priority="1">https://raw.githubusercontent.com/conseilgouz/updates_github/master/cg_scroll_update.xml</server>
 	</updateservers>
 </extension>	
