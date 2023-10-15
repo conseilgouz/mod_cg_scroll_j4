@@ -54,9 +54,10 @@ if ($version < "4") { // Joomla 3.x
 	$document->addStyleSheet($modulefield.'css/scroll_j3.css');
 	$document->addScript($modulefield.'js/scroll.js');
 } else {
+/** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
 	$wa = Factory::getDocument()->getWebAssetManager();
-	$wa->registerAndUseStyle('scroll',$modulefield.'css/scroll.css');
-	$wa->registerAndUseScript('scroll',$modulefield.'js/scroll.js');
+	$wa->registerAndUseStyle('scroll','media/'.$module->module.'/css/scroll.css');
+	$wa->registerAndUseScript('scroll','media/'.$module->module.'/js/scroll.js');
 }
 if ($sf_type == 'FEED') {
 	$feed = CGScrollHelper::getFeed($params);
