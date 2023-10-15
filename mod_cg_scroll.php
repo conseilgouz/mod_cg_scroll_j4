@@ -1,10 +1,10 @@
 <?php
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.2.0
+* Version			: 4.2.3
 * Package			: Joomla 3.10.x - 4.x - 5.x
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
 // no direct access
 defined('_JEXEC') or die;
@@ -44,8 +44,6 @@ $sf_delay	= $sf_delay * 1000;
 $sf_w_img   = str_replace('%','',$sf_w_img);   
 $sf_wimg_responsive=(100 - $sf_w_img)/2;       
 
-HTMLHelper::_('jquery.framework');
-
 if ($sf_w_img>='55'): $margin_item_image='padding: 0 '.$sf_wimg_responsive.'% ;'; endif; 
 if ($sf_w_img<='54'): $margin_item_image="margin-right:5px; float:left;"; endif;         
 
@@ -54,12 +52,12 @@ $version=substr($j->getShortVersion(), 0,1);
 if ($version < "4") { // Joomla 3.x
 	$document->addStyleSheet("//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
 	$document->addStyleSheet($modulefield.'css/scroll_j3.css');
+	$document->addScript($modulefield.'js/scroll.js');
 } else {
-	$document->addStyleSheet($modulefield.'css/scroll.css');
+	$wa = Factory::getDocument()->getWebAssetManager();
+	$wa->registerAndUseStyle('scroll',$modulefield.'css/scroll.css');
+	$wa->registerAndUseScript('scroll',$modulefield.'js/scroll.js');
 }
-$document->addScript($modulefield.'js/init.js');
-$document->addScript($modulefield.'js/scroll.js');
-
 if ($sf_type == 'FEED') {
 	$feed = CGScrollHelper::getFeed($params);
 	$count = $params->get('rssitems', 5);

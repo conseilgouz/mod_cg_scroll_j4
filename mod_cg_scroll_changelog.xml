@@ -2,6 +2,20 @@
 	<changelog>
 		<element>mod_cg_scroll</element>
 		<type>Module</type>
+		<version>4.2.3</version>
+        <note>
+            <item>Update : 15/10/2023</item>
+        </note>
+        <change>
+            <item>merge init.js/scroll.js in scroll.js file</item>
+        </change>
+        <remove>
+            <item>Remove JQuery dependency</item>
+        </remove>
+	</changelog>
+	<changelog>
+		<element>mod_cg_scroll</element>
+		<type>Module</type>
 		<version>4.2.2</version>
         <note>
             <item>Update : 21/09/2023</item>
