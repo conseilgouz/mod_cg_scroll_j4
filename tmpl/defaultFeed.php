@@ -1,10 +1,10 @@
 <?php
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.2.0 
-* Package			: Joomla 3.10.x - 4.x
-* copyright 		: Copyright (C) 2022 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* Version			: 4.2.6 
+* Package			: Joomla 3.10.x - 4.x - 5.x
+* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
 
 // no direct access
@@ -65,7 +65,7 @@ else {
 		}
 	}
 	?>
-	<div style="direction: <?php echo $rssrtl ? 'rtl' :'ltr'; ?>; text-align: <?php echo $rssrtl ? 'right' :'left'; ?> ! important"  class="cg-scroll">
+	<div style="direction: <?php echo $rssrtl ? 'rtl' :'ltr'; ?>; text-align: <?php echo $rssrtl ? 'right' :'left'; ?> ! important"  class="cg-scroll" data="<?php echo $module->id ?>">
 	<?php
 	if (!is_null($feed->title) && $params->get('rsstitle', 1)) {
 	?>
@@ -86,9 +86,7 @@ else {
 			CGScrollHelper::showDirection($num_sf,$sf_direction); 
 	}
 	?>
-		<div id="sfdmarqueecontainer" 
-				onMouseover="copyspeed[<?php echo $module->id;?>]=0" 
-				onMouseout="copyspeed[<?php echo $module->id;?>]=marqueespeed[<?php echo $module->id;?>]">
+		<div id="sfdmarqueecontainer" data="<?php echo $module->id ?>">
 		<div id="vmarquee" style="position: absolute;">		
 
 	<!-- Show items -->

@@ -1,14 +1,11 @@
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.2.3
+* Version			: 4.2.6
 * Package			: Joomla 3.10.x - 4.x - 5.x
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
-var cgscroll_options = [],	container = [], me_up = [],	me_down = [],me_left= [],me_right =[];
-var cross_marquee = [],sens = [], copyspeed = [],actualwidth = [],actualheight = [];
-var marqueeheight = [],marqueewidth = [],marqueespeed = [],lefttime = [],pauseit = [];
-var delay = [],ids = [], items_ul = [];
+var cgscroll = [];
 
 document.addEventListener('DOMContentLoaded', function() {
 	mains = document.querySelectorAll('.cg_scroll');
@@ -19,8 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			return false;
 		}
 		me = "#cg_scroll_"+myid+" ";
-		cgscroll_options[myid] = Joomla.getOptions('mod_cg_scroll_'+myid);
-		if (typeof cgscroll_options[myid] === 'undefined' ) { // cache Joomla problem
+		cgscroll_options = Joomla.getOptions('mod_cg_scroll_'+myid);
+		if (typeof cgscroll_options === 'undefined' ) { // cache Joomla problem
 			request = {
 				'option' : 'com_ajax',
 				'module' : 'cg_scroll',
@@ -32,168 +29,197 @@ document.addEventListener('DOMContentLoaded', function() {
 				type   : 'POST',
 				data   : request,
 				success: function (response) {
-					cgscroll_options[myid] = JSON.parse(response);
-					go_scroll(myid,me);
+					cgscroll_options = JSON.parse(response);
+					cgscroll[myid] = new CGScroll(myid,me,cgscroll_options);
+					cgscroll[myid].go_scroll();
 					return true;
 				}
 			});
 		}
-		if (typeof cgscroll_options[myid] === 'undefined' ) {return false}
+		if (typeof cgscroll_options === 'undefined' ) {return false}
 		
-		go_scroll(myid,me);
+		cgscroll[myid] = new CGScroll(myid,me,cgscroll_options);
+		cgscroll[myid].go_scroll(myid);
 		
-		}
-})
-function go_scroll(myid,me) {
-	container[myid] = document.querySelector(me + '#sfdmarqueecontainer');
-	cross_marquee[myid] = document.querySelector(me + '#vmarquee');
-	items_ul[myid] = document.querySelector(me + 'ul.cg-scroll-items');
-
-	container[myid].style.height = cgscroll_options[myid].height+"px";
+	}
+});
+function CGScroll(myid,me,options) {
+	this.options = options;
+	this.myid = myid;
+	this.me = me;
+	this.container = document.querySelector(this.me + '#sfdmarqueecontainer');
+	this.cross_marquee = document.querySelector(this.me + '#vmarquee');
+	this.items_ul = document.querySelector(this.me + 'ul.cg-scroll-items');
+	this.container.style.height = this.options.height+"px";
+	this.marqueespeed = this.options.speed;
+	this.copyspeed=parseInt(this.marqueespeed);
+	this.pauseit=this.options.pause;
+	this.delay=parseInt(this.options.delay);
+	this.actualheight='';
+	this.actualwidth='';
+	this.sens = 0;
+	this.lefttime = 0;
+	document.querySelector(this.me +"#toDirection").style.display = 'block';
+	this.me_up = document.querySelector(this.me + ".icon-dir-up");
+	this.me_down = document.querySelector(this.me + ".icon-dir-down");
+	this.me_left = document.querySelector(this.me + ".icon-dir-left");
+	this.me_right = document.querySelector(this.me + ".icon-dir-right");
+	
 	items = document.querySelectorAll(me + 'ul.cg-scroll-items li');
 	$total_width = 0;
 	for(var i=0; i<items.length; i++) {
-		if (cgscroll_options[myid].direction == 1) { // vertical scroll
+		if (this.options.direction == 1) { // vertical scroll
 			items[i].style.width = "auto";
 		} else { // horizontal scroll
 			items[i].style.float = "left";
 			items[i].style.height = "100%";
 			items[i].style.liststyleType = "circle";
-		    if (cgscroll_options[myid].width == 0) {
+		    if (this.options.width == 0) {
 				items[i].style.width = "auto";
 				items[i].style.margin = "12px";
 			} else {
-				items[i].style.width = cgscroll_options[myid].width;
+				items[i].style.width = this.options.width;
 				items[i].style.margin = "12px";
 			}
 			$total_width += parseInt(items[i].clientWidth) + 24; // add margin
 		}
 	}
-	if (cgscroll_options[myid].direction != 1) { // horizontal scroll
+	if (this.options.direction != 1) { // horizontal scroll
 		$total_width = $total_width  / 2; // on a doublé les articles
-		cross_marquee[myid].style.float = "left";
-		cross_marquee[myid].style.width = $total_width+"px";
-		// container[myid].style.width = $total_width+"px";
-		cross_marquee[myid].style.height =  cgscroll_options[myid].height+"%";
-		items_ul[myid].style.width = ($total_width * 2) + "px"; 
-			
+		this.cross_marquee.style.float = "left";
+		this.cross_marquee.style.width = $total_width+"px";
+		this.cross_marquee.style.height =  this.options.height+"%";
+		this.items_ul.style.width = ($total_width * 2) + "px"; 
 	}
-	sens[myid] = 0;
-	marqueespeed[myid]=cgscroll_options[myid].speed;
-	copyspeed[myid]=parseInt(marqueespeed[myid]);
-	pauseit[myid]=cgscroll_options[myid].pause;
-	delay[myid]=parseInt(cgscroll_options[myid].delay);
-	actualheight[myid]='';
-	actualwidth[myid]='';
-	if (cgscroll_options[myid].direction == 1) {
-		initializemarqueeup(myid);
+	
+}
+CGScroll.prototype.go_scroll = function (myid) {
+	$this = cgscroll[myid];
+	if ($this.options.direction == 1) {
+		$this.initializemarqueeup(myid);
 	} else {
-		initializemarqueeleft(myid);
+		$this.initializemarqueeleft(myid);
 	}
-	document.querySelector(me +"#toDirection").style.display = 'block';
-	me_up[myid] = document.querySelector(me + ".icon-dir-up");
-	me_down[myid] = document.querySelector(me + ".icon-dir-down");
-	me_left[myid] = document.querySelector(me + ".icon-dir-left");
-	me_right[myid] = document.querySelector(me + ".icon-dir-right");
-	if (me_up[myid])	{
-		me_up[myid].style.display = "none";
-		me_up[myid].addEventListener("click",function() {
-			sens[myid] = 0;
-			clearInterval(lefttime[myid]);
-			lefttime[myid] = setInterval(function() { scrollmarquee(myid); },40);
-			me_up[myid].style.display = "none";
-			me_down[myid].style.display = "block";
+	$this.container.addEventListener('mouseover',function() {
+			id = this.getAttribute('data');
+			cgscroll[id].copyspeed=0;
+	})
+	$this.container.addEventListener('mouseout',function() {
+			id = this.getAttribute('data');
+			cgscroll[id].copyspeed=cgscroll[id].marqueespeed;
+	})
+	
+	if ($this.me_up)	{
+		$this.me_up.style.display = "none";
+		$this.me_up.addEventListener("click",function() {
+			id = this.parentNode.parentNode.getAttribute('data');
+			$this = cgscroll[id];
+			$this.sens = 0;
+			clearInterval($this.lefttime);
+			$this.lefttime = setInterval(function() { $this.scrollmarquee(id); },40);
+			$this.me_up.style.display = "none";
+			$this.me_down.style.display = "block";
 			return false;
 		});	
-		me_down[myid].addEventListener("click",function() {
-			sens[myid] = 1;
-			clearInterval(lefttime[myid]);
-			lefttime[myid] = setInterval(function() { scrollmarquee(myid); },40);
-			me_down[myid].style.display = "none";
-			me_up[myid].style.display = "block";
+		$this.me_down.addEventListener("click",function() {
+			id = this.parentNode.parentNode.getAttribute('data');
+			$this = cgscroll[id];
+			$this.sens = 1;
+			clearInterval($this.lefttime);
+			$this.lefttime = setInterval(function() { $this.scrollmarquee(id); },40);
+			$this.me_down.style.display = "none";
+			$this.me_up.style.display = "block";
 			return false;
 		});
 	}
-	if (me_left[myid]) {
-		me_left[myid].style.display = "none";
-		me_left[myid].addEventListener("click",function() {
-			sens[myid] = 0;
-			clearInterval(lefttime[myid]);
-			lefttime[myid] = setInterval(function() { leftmarquee(myid); },15);
-			me_left[myid].style.display = "none";
-			me_right[myid].style.display = "block";
+	if ($this.me_left) {
+		$this.me_left.style.display = "none";
+		$this.me_left.addEventListener("click",function() {
+			id = this.parentNode.parentNode.getAttribute('data');
+			$this = cgscroll[id];
+			$this.sens = 0;
+			clearInterval($this.lefttime);
+			$this.lefttime = setInterval(function() { $this.leftmarquee(id); },25);
+			$this.me_left.style.display = "none";
+			$this.me_right.style.display = "block";
 			return false;
 		});
-		me_right[myid].addEventListener('click', function() {
-			sens[myid] = 1;
-			clearInterval(lefttime[myid]);
-			lefttime[myid] = setInterval(function() { leftmarquee(myid); },15);
-			me_left[myid].style.display = "block";
-			me_right[myid].style.display = "none";
+		$this.me_right.addEventListener('click', function() {
+			id = this.parentNode.parentNode.getAttribute('data');
+			$this = cgscroll[id];
+			$this.sens = 1;
+			clearInterval($this.lefttime);
+			$this.lefttime = setInterval(function() { $this.leftmarquee(id); },25);
+			$this.me_left.style.display = "block";
+			$this.me_right.style.display = "none";
 			return false;
 		});
 	}
-	if (cgscroll_options[myid].direction == 1) {
+	if ($this.options.direction == 1) {
 		document.querySelector(me + ".icon-dir-down").style.display = "block";
 	} else {
 		document.querySelector(me + ".icon-dir-right").style.display = "block";
 	}
 }
 // up/down scroll
-function scrollmarquee(id){
-	if (sens[id] > 0) {
-		if (parseInt(cross_marquee[id].style.top)< 0) {
-			cross_marquee[id].style.top = (parseInt(cross_marquee[id].style.top)+parseInt(copyspeed[id]))+"px";
+CGScroll.prototype.scrollmarquee = function (myid){
+	$this = cgscroll[myid];
+	if ($this.sens > 0) {
+		if (parseInt($this.cross_marquee.style.top)< 0) {
+			$this.cross_marquee.style.top = (parseInt($this.cross_marquee.style.top)+parseInt($this.copyspeed))+"px";
 		} else {
-			cross_marquee[id].style.top = parseInt(actualheight[id]*(-1)+8)+"px";
+			$this.cross_marquee.style.top = parseInt($this.actualheight*(-1)+8)+"px";
 		}
 	} else {
-		if (parseInt(cross_marquee[id].style.top)>(actualheight[id]*(-1)+8))  {
-			cross_marquee[id].style.top = (parseInt(cross_marquee[id].style.top)-parseInt(copyspeed[id]))+"px";
+		if (parseInt($this.cross_marquee.style.top)>( $this.actualheight*(-1)+8))  {
+			$this.cross_marquee.style.top = (parseInt($this.cross_marquee.style.top)-parseInt($this.copyspeed))+"px";
 		} else {
-			cross_marquee[id].style.top = "0px";
+			$this.cross_marquee.style.top = "0px";
 		}
 	}
 }
 // left/right scroll
-function leftmarquee(id){
-	if (sens[id] > 0) {
-			if (parseInt(cross_marquee[id].style.left) < 0) 
-				cross_marquee[id].style.left = (parseInt(cross_marquee[id].style.left)+parseInt(copyspeed[id]))+"px";
+CGScroll.prototype.leftmarquee = function(myid) {
+	$this = cgscroll[myid];
+	if ($this.sens > 0) {
+			if (parseInt($this.cross_marquee.style.left) < 0) 
+				$this.cross_marquee.style.left = (parseInt($this.cross_marquee.style.left)+parseInt($this.copyspeed))+"px";
 			else
-				cross_marquee[id].style.left = ((parseInt(actualwidth[id])*(-1))/2)+"px";
+				$this.cross_marquee.style.left = ((parseInt($this.actualwidth)*(-1))/2)+"px";
 		} 
 	else {
-		if (parseInt(cross_marquee[id].style.left) > (parseInt(actualwidth[id])*(-1) /2) )
-			cross_marquee[id].style.left = (parseInt(cross_marquee[id].style.left)-parseInt(copyspeed[id]))+"px";
+		if (parseInt($this.cross_marquee.style.left) > (parseInt($this.actualwidth)*(-1) /2) )
+			$this.cross_marquee.style.left = (parseInt($this.cross_marquee.style.left)-parseInt($this.copyspeed))+"px";
 		else
-			cross_marquee[id].style.left = "0px";
+			$this.cross_marquee.style.left = "0px";
 		}
 }
-function initializemarqueeup(id){
-	cross_marquee[id].style.top = "0";
-	marqueeheight[id]=parseInt(container[id].style.height);
-	actualheight[id]=parseInt(cross_marquee[id].offsetHeight)/2;
+CGScroll.prototype.initializemarqueeup = function (myid){
+	$this = cgscroll[myid];
+	$this.cross_marquee.style.top = "0";
+	$this.marqueeheight=parseInt($this.container.style.height);
+	$this.actualheight=parseInt($this.cross_marquee.offsetHeight)/2;
 	if (window.opera || navigator.userAgent.indexOf("Netscape/7")!=-1){ //if Opera or Netscape 7x, add scrollbars to scroll and exit
-		cross_marquee[id].style.height = marqueeheight[id]+"px";
-		cross_marquee[id].style.overflow = "scroll";
-		return
-	}
-	setTimeout(function () {400
-		lefttime[id] = setInterval(function() { scrollmarquee(id); },40)
-		}, delay[id]);
-}
-function initializemarqueeleft(id){
-	cross_marquee[id].style.left = "0px";
-	marqueewidth[id]=parseInt(container[id].offsetWidth);
-	actualwidth[id]=parseInt(items_ul[id].offsetWidth)+"px"; 
-	cross_marquee[id].style.width = marqueewidth[id]+"px";
-	if (window.opera || navigator.userAgent.indexOf("Netscape/7")!=-1){ //if Opera or Netscape 7x, add scrollbars to scroll and exit
-		cross_marquee[id].style.height = marqueeheight[id]+"px";
-		cross_marquee[id].style.overflow = "scroll";
+		$this.cross_marquee.style.height = $this.marqueeheight+"px";
+		$this.cross_marquee.style.overflow = "scroll";
 		return
 	}
 	setTimeout(function () {
-			lefttime[id] = setInterval(function() { leftmarquee(id); },15)
-			}, delay[id]);
+		$this.lefttime = setInterval(function() { $this.scrollmarquee(myid); },40)
+		}, $this.delay);
+}
+CGScroll.prototype.initializemarqueeleft = function (myid){
+	$this = cgscroll[myid];
+	$this.cross_marquee.style.left = "0px";
+	$this.marqueewidth =parseInt($this.container.offsetWidth);
+	$this.actualwidth=parseInt($this.items_ul.offsetWidth)+"px"; 
+	$this.cross_marquee.style.width = $this.marqueewidth+"px";
+	if (window.opera || navigator.userAgent.indexOf("Netscape/7")!=-1){ //if Opera or Netscape 7x, add scrollbars to scroll and exit
+		$this.cross_marquee.style.height = $this.marqueeheight+"px";
+		$this.cross_marquee.style.overflow = "scroll";
+		return
+	}
+	setTimeout(function () {
+			$this.lefttime = setInterval(function() { $this.leftmarquee(myid); },20)
+			}, $this.delay);
 } 
