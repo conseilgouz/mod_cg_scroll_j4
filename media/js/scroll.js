@@ -1,6 +1,6 @@
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.2.6
+* Version			: 4.2.7
 * Package			: Joomla 3.10.x - 4.x - 5.x
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			console.error('Joomla.getOptions not found!\nThe Joomla core.js file is not being loaded.');
 			return false;
 		}
-		me = "#cg_scroll_"+myid+" ";
+		ascroll = "#cg_scroll_"+myid+" ";
 		cgscroll_options = Joomla.getOptions('mod_cg_scroll_'+myid);
 		if (typeof cgscroll_options === 'undefined' ) { // cache Joomla problem
 			request = {
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				data   : request,
 				success: function (response) {
 					cgscroll_options = JSON.parse(response);
-					cgscroll[myid] = new CGScroll(myid,me,cgscroll_options);
+					cgscroll[myid] = new CGScroll(myid,ascroll,cgscroll_options);
 					cgscroll[myid].go_scroll();
 					return true;
 				}
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 		if (typeof cgscroll_options === 'undefined' ) {return false}
 		
-		cgscroll[myid] = new CGScroll(myid,me,cgscroll_options);
+		cgscroll[myid] = new CGScroll(myid,ascroll,cgscroll_options);
 		cgscroll[myid].go_scroll(myid);
 		
 	}
