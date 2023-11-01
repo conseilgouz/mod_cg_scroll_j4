@@ -1,6 +1,6 @@
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.2.7
+* Version			: 4.2.8
 * Package			: Joomla 3.10.x - 4.x - 5.x
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -156,9 +156,9 @@ CGScroll.prototype.go_scroll = function (myid) {
 		});
 	}
 	if ($this.options.direction == 1) {
-		document.querySelector(me + ".icon-dir-down").style.display = "block";
+		document.querySelector($this.me + ".icon-dir-down").style.display = "block";
 	} else {
-		document.querySelector(me + ".icon-dir-right").style.display = "block";
+		document.querySelector($this.me + ".icon-dir-right").style.display = "block";
 	}
 }
 // up/down scroll
