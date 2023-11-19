@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.2.9
+* Version			: 4.2.10
 * Package			: Joomla 4.x/5.x
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -445,7 +445,7 @@ class CGScrollHelper {
 		return $html;
 	}
 	public static function showDirection($num_sf,$sf_direction) { 
-		echo '<span class="hidden-phone" id="toDirection">';
+		echo '<span id="toDirection">';
 		if ($sf_direction == 1)	{ 
 			echo '<span class="icon-dir-down fas"></span>';
 			echo '<span id="toDirectionText"> </span>';
