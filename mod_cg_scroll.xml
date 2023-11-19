@@ -2,12 +2,12 @@
 <extension type="module" version="4.x" client="site" method="upgrade">
 	<name>CG Scroll</name>
 	<author>ConseilGouz</author>
-	<creationDate>2023-11-01</creationDate>
+	<creationDate>2023-11-19</creationDate>
 	<copyright>Copyright (C) 2023 ConseilGouz. All rights reserved.</copyright>
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>www.conseilgouz.com</authorUrl>
-	<version>4.2.8</version>
+	<version>4.2.9</version>
 	<description>CGSCROLLDESC</description>
 	<namespace path="src">ConseilGouz\Module\CGScroll</namespace>
 	<scriptfile>script.php</scriptfile>

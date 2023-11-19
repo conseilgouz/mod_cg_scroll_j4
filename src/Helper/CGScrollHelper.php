@@ -1,10 +1,10 @@
 <?php
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.2.0
+* Version			: 4.2.9
 * Package			: Joomla 4.x/5.x
 * copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
-* license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
 // no direct access
 namespace ConseilGouz\Module\CGScroll\Site\Helper;
@@ -447,14 +447,14 @@ class CGScrollHelper {
 	public static function showDirection($num_sf,$sf_direction) { 
 		echo '<span class="hidden-phone" id="toDirection">';
 		if ($sf_direction == 1)	{ 
-			echo '<span class="icon-dir-down"></span>';
+			echo '<span class="icon-dir-down fas"></span>';
 			echo '<span id="toDirectionText"> </span>';
-			echo '<span class="icon-dir-up"></span>';
+			echo '<span class="icon-dir-up fas"></span>';
 			echo '<span id="toDirText"> </span>';
 		} else {
-			echo '<span class="icon-dir-left"></span>';
+			echo '<span class="icon-dir-left fas"></span>';
 			echo '<span id="toDirectionText"> </span>';
-			echo '<span class="icon-dir-right"></span>';
+			echo '<span class="icon-dir-right fas"></span>';
 			echo '<span id="toDirText"> </span>';
 		}
 		echo '</span>';
