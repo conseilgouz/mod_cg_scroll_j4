@@ -2,6 +2,22 @@
 	<changelog>
 		<element>mod_cg_scroll</element>
 		<type>Module</type>
+		<version>4.3.0</version>
+        <note>
+            <item>Update : 03/04/2024</item>
+        </note>
+        <addition>
+            <item>Add extraslow choice</item>
+        </addition>
+        <fix>
+            <item>Multiple modules on one page : handle individual parameters</item>
+            <item>Fix hide icon fires a javascript error</item>
+            <item>Article : no title, no date : don't show article link</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>mod_cg_scroll</element>
+		<type>Module</type>
 		<version>4.2.10</version>
         <note>
             <item>Update : 19/11/2023</item>

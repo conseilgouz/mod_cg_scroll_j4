@@ -2,12 +2,12 @@
 <extension type="module" version="4.x" client="site" method="upgrade">
 	<name>CG Scroll</name>
 	<author>ConseilGouz</author>
-	<creationDate>2023-11-19</creationDate>
-	<copyright>Copyright (C) 2023 ConseilGouz. All rights reserved.</copyright>
+	<creationDate>2024-04-03</creationDate>
+	<copyright>Copyright (C) 2024 ConseilGouz. All rights reserved.</copyright>
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>www.conseilgouz.com</authorUrl>
-	<version>4.2.10</version>
+	<version>4.3.0</version>
 	<description>CGSCROLLDESC</description>
 	<namespace path="src">ConseilGouz\Module\CGScroll</namespace>
 	<scriptfile>script.php</scriptfile>
@@ -25,7 +25,7 @@
 	</media>
 	<languages>
 		<language tag="en-GB">language/en-GB/mod_cg_scroll.ini</language>
-		<language tag="eb-GB">language/en-GB/mod_cg_scroll.sys.ini</language>
+		<language tag="en-GB">language/en-GB/mod_cg_scroll.sys.ini</language>
 		<language tag="fr-FR">language/fr-FR/mod_cg_scroll.ini</language>
 		<language tag="fr-FR">language/fr-FR/mod_cg_scroll.sys.ini</language>
 	</languages>
@@ -128,6 +128,15 @@
 				<field name="sf_speed" 	type="integer" 	default="1"
 					label="SF_SPEED" description="SF_SPEEDDESC" 
 					first="1" last="10" step="1" />	
+				<field name="sf_extraslow" 	type="radio" class="btn-group"
+					label="SF_EXTRASLOW" description="SF_EXTRASLOWDESC" 
+					default="0">
+					<option	value="0">JEXTRA0</option>
+					<option	value="1">JEXTRA1</option>
+					<option	value="2">JEXTRA2</option>
+					<option	value="3">JEXTRA3</option>
+					<option	value="4">JEXTRA4</option>
+                </field>
 				<field	name="sf_pause"	type="radio"
 					class="btn-group btn-group-yesno"	default="1"
 					label="SF_PAUSE"	description="SF_PAUSEDESC">

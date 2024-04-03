@@ -1,8 +1,8 @@
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.2.8
+* Version			: 4.3.0
 * Package			: Joomla 3.10.x - 4.x - 5.x
-* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
 var cgscroll = [];
@@ -59,7 +59,9 @@ function CGScroll(myid,me,options) {
 	this.actualwidth='';
 	this.sens = 0;
 	this.lefttime = 0;
-	document.querySelector(this.me +"#toDirection").style.display = 'block';
+    this.slowdown = this.options.slowdown;
+	ico = document.querySelector(this.me +"#toDirection")
+    if (ico) ico.style.display = 'block';
 	this.me_up = document.querySelector(this.me + ".icon-dir-up");
 	this.me_down = document.querySelector(this.me + ".icon-dir-down");
 	this.me_left = document.querySelector(this.me + ".icon-dir-left");
@@ -116,7 +118,7 @@ CGScroll.prototype.go_scroll = function (myid) {
 			$this = cgscroll[id];
 			$this.sens = 0;
 			clearInterval($this.lefttime);
-			$this.lefttime = setInterval(function() { $this.scrollmarquee(id); },40);
+			$this.setVerticalTimeout($this,id);
 			$this.me_up.style.display = "none";
 			$this.me_down.style.display = "block";
 			return false;
@@ -126,7 +128,7 @@ CGScroll.prototype.go_scroll = function (myid) {
 			$this = cgscroll[id];
 			$this.sens = 1;
 			clearInterval($this.lefttime);
-			$this.lefttime = setInterval(function() { $this.scrollmarquee(id); },40);
+            $this.setVerticalTimeout($this,id);
 			$this.me_down.style.display = "none";
 			$this.me_up.style.display = "block";
 			return false;
@@ -139,7 +141,7 @@ CGScroll.prototype.go_scroll = function (myid) {
 			$this = cgscroll[id];
 			$this.sens = 0;
 			clearInterval($this.lefttime);
-			$this.lefttime = setInterval(function() { $this.leftmarquee(id); },25);
+            $this.setHorizontalTimeout($this,id);
 			$this.me_left.style.display = "none";
 			$this.me_right.style.display = "block";
 			return false;
@@ -149,16 +151,16 @@ CGScroll.prototype.go_scroll = function (myid) {
 			$this = cgscroll[id];
 			$this.sens = 1;
 			clearInterval($this.lefttime);
-			$this.lefttime = setInterval(function() { $this.leftmarquee(id); },25);
+            $this.setHorizontalTimeout($this,id);
 			$this.me_left.style.display = "block";
 			$this.me_right.style.display = "none";
 			return false;
 		});
 	}
 	if ($this.options.direction == 1) {
-		document.querySelector($this.me + ".icon-dir-down").style.display = "block";
+		if ($this.me_down) $this.me_down.style.display = "block";
 	} else {
-		document.querySelector($this.me + ".icon-dir-right").style.display = "block";
+        if ($this.me_right) $this.me_right.style.display = "block";
 	}
 }
 // up/down scroll
@@ -204,9 +206,7 @@ CGScroll.prototype.initializemarqueeup = function (myid){
 		$this.cross_marquee.style.overflow = "scroll";
 		return
 	}
-	setTimeout(function () {
-		$this.lefttime = setInterval(function() { $this.scrollmarquee(myid); },40)
-		}, $this.delay);
+	setTimeout($this.setVerticalTimeout($this,myid),$this.delay); 
 }
 CGScroll.prototype.initializemarqueeleft = function (myid){
 	$this = cgscroll[myid];
@@ -219,7 +219,11 @@ CGScroll.prototype.initializemarqueeleft = function (myid){
 		$this.cross_marquee.style.overflow = "scroll";
 		return
 	}
-	setTimeout(function () {
-			$this.lefttime = setInterval(function() { $this.leftmarquee(myid); },20)
-			}, $this.delay);
+	setTimeout($this.setHorizontalTimeout($this,myid),$this.delay); 
 } 
+CGScroll.prototype.setVerticalTimeout = function($this,myid) {
+        $this.lefttime = setInterval(function() { $this.scrollmarquee(myid); },40 + (20 * $this.slowdown))
+}
+CGScroll.prototype.setHorizontalTimeout = function($this,myid) {
+        $this.lefttime = setInterval(function() { $this.leftmarquee(myid); },20 + (10 * $this.slowdown))
+}

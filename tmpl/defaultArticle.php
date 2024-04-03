@@ -41,8 +41,8 @@ JLoader::registerNamespace('ConseilGouz\Module\CGScroll\Site', JPATH_SITE . '/mo
 		// Image handling
 		$iUrl	= isset($article->image)	? $article->image	: null;
 		$iTitle = isset($article->imagetitle) ? $article->imagetitle : null;
-		if (($sh_button == 1) && ($module->showtitle == 1)) { // 2.2.10 
-			CGScrollHelper::showDirection($num_sf,$sf_direction); // 2.2.27
+		if (($sh_button == 1) && ($module->showtitle == 1)) { 
+			CGScrollHelper::showDirection($num_sf,$sf_direction); 
 		}
 		?>
 	
@@ -62,7 +62,7 @@ JLoader::registerNamespace('ConseilGouz\Module\CGScroll\Site', JPATH_SITE . '/mo
 		}	?>
 		>
 <?php	
-	for ($twice = 0; $twice < 2; $twice++) { // 2.3.5 : continuous scroll effect
+	for ($twice = 0; $twice < 2; $twice++) { // continuous scroll effect
 	   for ($i = 0; $i < $params->get('catitems', 5); $i++) { 
 		if (isset($article[$i])) {
 			$text_type = $params->get( 'text_type', 'both' );
@@ -77,16 +77,19 @@ JLoader::registerNamespace('ConseilGouz\Module\CGScroll\Site', JPATH_SITE . '/mo
 			$uneDate = date('d/m/Y',strtotime($article[$i]->modified));
 			?>
 				<li>
-				<a href="<?php echo $article[$i]->link;?>">
-				<h5><?php  if ($params->get('articletitle') == 1) { 
-					echo $article[$i]->title; } 
-					?> 
-					<?php  if ($params->get('articledatepub') == 1) { 
-					echo ' ('.$uneDate.')'; } 
-					?>
-				</h5></a>
-				<?php
-				if ($params->get('articleimg',0) == 1) { // image d'intro
+                <?php  
+                if ($params->get('articletitle') || $params->get('articledatepub')) { 
+                    echo "<a href='".$article[$i]->link."'>";
+                    echo "<h5>";
+                    if ($params->get('articletitle') == 1) { 
+                        echo $article[$i]->title; 
+                    } 
+                    if ($params->get('articledatepub') == 1) { 
+                        echo ' ('.$uneDate.')'; 
+                    } 
+                    echo "</h5></a>";
+                } 
+                if ($params->get('articleimg',0) == 1) { // image d'intro
 					echo LayoutHelper::render('joomla.content.intro_image', $article[$i]);
 				}
 				$text = CGScrollHelper::truncate($text, $params->get('char_count',10),false);

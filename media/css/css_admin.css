@@ -1,0 +1,64 @@
+/**
+ * @package CG Scoll Module
+ * @version 4.3.0
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
+ * @Copyright (C) 2024 ConseilGouz. All Rights Reserved.
+ * @author ConseilGouz 
+ * 
+ *						>>>	CSS for Admin display module  <<<
+ */
+.info-labels + div {
+background: none repeat scroll 0 0 #EEEEEE;
+color: #000000;
+font-size: 110%;
+font-style: italic;
+font-weight: normal;
+margin: 15px 0 30px;
+padding: 15px 10px 10px 20px;
+}
+.control-group:nth-of-type(9){ /* display title */
+	float:left;width:30%;
+}
+.control-group:nth-of-type(10){ /* display date */
+	float:left;width:30%;
+}
+.control-group:nth-of-type(11){ /* display intro img */
+	float:right;width:30%;
+}
+.control-group:nth-of-type(12){ /* nb char*/
+	clear:both;float:left;width:50%;
+}
+.control-group:nth-of-type(13){ /* clean html */
+	float:right;width:50%;
+}
+.control-group:nth-of-type(13) .control-label{ /* clean html */
+	margin-left:1.5em
+}
+
+.control-group:nth-of-type(14){ /* height */
+	clear:both;
+}
+.control-group:nth-of-type(17){ /* height */
+	clear:both;
+}
+.control-group:nth-of-type(19){ /* Wait */
+	width:50%;
+}
+.control-group:nth-of-type(20){ /* Wait */
+	width:50%;
+}
+.control-group:nth-of-type(21){ /* speed */
+	float:left;width:50%;
+}
+.control-group:nth-of-type(22){ /* Extra slow */
+	float:right;width:50%;
+}
+.control-group:nth-of-type(22) .control-label{ /* extra size */
+	text-align:right;
+}
+
+.control-group:nth-of-type(23){ /* pause*/
+	clear:both;
+}
+
+
