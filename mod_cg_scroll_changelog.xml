@@ -13,6 +13,7 @@
             <item>Multiple modules on one page : handle individual parameters</item>
             <item>Fix hide icon fires a javascript error</item>
             <item>Article : no title, no date : don't show article link</item>
+            <item>Feed : show/hide button not working</item>
         </fix>
 	</changelog>
 	<changelog>
