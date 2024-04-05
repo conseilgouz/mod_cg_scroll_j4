@@ -2,6 +2,18 @@
 	<changelog>
 		<element>mod_cg_scroll</element>
 		<type>Module</type>
+		<version>4.3.2</version>
+        <note>
+            <item>Update : 05/04/2024</item>
+        </note>
+        <change>
+            <item>Smooth scroll by changing scroll to translateX/translateY </item>
+            <item>Parameters : change options display lengths</item>
+        </change>
+	</changelog>
+	<changelog>
+		<element>mod_cg_scroll</element>
+		<type>Module</type>
 		<version>4.3.1</version>
         <note>
             <item>Update : 03/04/2024</item>

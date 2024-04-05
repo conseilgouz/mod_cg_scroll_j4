@@ -16,6 +16,9 @@ font-weight: normal;
 margin: 15px 0 30px;
 padding: 15px 10px 10px 20px;
 }
+.control-group:nth-of-type(6) .controls{ /* display title */
+	width:50%;
+}
 .control-group:nth-of-type(9){ /* display title */
 	float:left;width:30%;
 }
@@ -28,37 +31,78 @@ padding: 15px 10px 10px 20px;
 .control-group:nth-of-type(12){ /* nb char*/
 	clear:both;float:left;width:50%;
 }
+.control-group:nth-of-type(12) .controls{ /* nb char*/
+	min-width:110px
+}
 .control-group:nth-of-type(13){ /* clean html */
 	float:right;width:50%;
 }
 .control-group:nth-of-type(13) .control-label{ /* clean html */
-	margin-left:1.5em
+	margin-left:1.5em;
+    width: 150px;
+}
+.control-group:nth-of-type(13) .controls{ /* clean html */
+	min-width:100px;
 }
 
 .control-group:nth-of-type(14){ /* height */
 	clear:both;
 }
+.control-group:nth-of-type(14) .controls{ /* height*/
+	max-width:110px
+}
 .control-group:nth-of-type(17){ /* height */
 	clear:both;
 }
-.control-group:nth-of-type(19){ /* Wait */
-	width:50%;
+.control-group:nth-of-type(18) .controls{ /*width*/
+	max-width:110px
 }
+.control-group:nth-of-type(19) .controls{ /*wait*/
+	max-width:110px
+}
+
 .control-group:nth-of-type(20){ /* Wait */
 	width:50%;
 }
+.control-group:nth-of-type(20) .controls{ /* Wait */
+	min-width:100px;
+    max-width:100px;
+}
 .control-group:nth-of-type(21){ /* speed */
 	float:left;width:50%;
+}
+.control-group:nth-of-type(21) .controls{ /* speed */
+	min-width:100px;
+    max-width:100px;
 }
 .control-group:nth-of-type(22){ /* Extra slow */
 	float:right;width:50%;
 }
 .control-group:nth-of-type(22) .control-label{ /* extra size */
-	text-align:right;
+	text-align:right;width:150px;
+}
+.control-group:nth-of-type(22) .controls{ /* extra size */
+	width:150px;
 }
 
 .control-group:nth-of-type(23){ /* pause*/
 	clear:both;
 }
 
+.control-group:nth-of-type(25) .controls{ /* elements */
+	min-width:100px;
+    max-width:100px;
+}
 
+.control-group:nth-of-type(26) .controls{ /* titlelg max */
+	min-width:100px;
+    max-width:100px;
+}
+.control-group:nth-of-type(28) .controls{ /* img size  */
+	min-width:100px;
+    max-width:100px;
+}
+.control-group:nth-of-type(29) .controls{ /* nb words */
+	min-width:100px;
+    max-width:100px;
+}

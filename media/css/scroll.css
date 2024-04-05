@@ -1,37 +1,41 @@
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.2.0
+* Version			: 4.3.2
 * Package			: Joomla 3.10.x - 4.x - 5.x
-* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
 .cg-scroll-title{
-		font-size:14px;
-		line-height:16px;
-		width:90%;
+    font-size:14px;
+    line-height:16px;
+    width:90%;
 } 
 .cg_scroll .cg-scroll-feed-img {
-	margin-bottom:0.5em;
-	width:95%
+    margin-bottom:0.5em;
+    width:95%
 }
 #vmarquee{padding: 0;
-		margin: 0;
-		list-style-type: none;
-}	
-ul.cg-scroll-items{	
-	padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+ul.cg-scroll-items-0,
+ul.cg-scroll-items-1{
+	padding: 0 0 .2rem 0;
 	margin: 0;
 	list-style-type: none;
 }
-ul.cg-scroll-items li {
+ul.cg-scroll-items-0 li, 
+ul.cg-scroll-items-1 li{
 	padding: 0;
-	margin: 2px;
 }
-
+ul.cg-scroll-items-1{
+    position: absolute;
+    top: 0;
+}
 #sfdmarqueecontainer {
-	position: relative;
-	width: 100%;
-	overflow: hidden;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
 } 
 #toDirection {
 margin-top: -50px;

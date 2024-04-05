@@ -1,9 +1,9 @@
 <?php
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.2.6
+* Version			: 4.3.2
 * Package			: Joomla 3.10.x - 4.x - 5.x
-* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
 // no direct access
@@ -56,14 +56,14 @@ JLoader::registerNamespace('ConseilGouz\Module\CGScroll\Site', JPATH_SITE . '/mo
 		<div id="sfdmarqueecontainer" data="<?php echo $module->id ?>" >
 		<div id="vmarquee" style="position: absolute;">		
 		<!-- Show items -->
-		<ul class="cg-scroll-items" 
-		<?php if ($sf_direction == 0 ) { 
-			echo 'style="width:'.(($sf_width*(sizeof($article)+1))).'px;"'; 
-		}	?>
-		>
 <?php	
 	for ($twice = 0; $twice < 2; $twice++) { // continuous scroll effect
-	   for ($i = 0; $i < $params->get('catitems', 5); $i++) { 
+        echo '<ul class="cg-scroll-items-'.$twice.'"';
+        if ($sf_direction == 0 ) { 
+			echo 'style="width:'.(($sf_width*(sizeof($article)+1))).'px;"'; 
+        }
+        echo '>'; // end of ul
+        for ($i = 0; $i < $params->get('catitems', 5); $i++) { 
 		if (isset($article[$i])) {
 			$text_type = $params->get( 'text_type', 'both' );
 			$text = "";
@@ -99,8 +99,9 @@ JLoader::registerNamespace('ConseilGouz\Module\CGScroll\Site', JPATH_SITE . '/mo
 				</li>
 		<?php }
 	      }
-		}
-		echo '</ul>'; ?>
+          echo '</ul>';
+		} 
+        ?>
 		</div>
 	</div>
 </div>	

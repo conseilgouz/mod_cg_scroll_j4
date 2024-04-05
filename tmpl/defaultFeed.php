@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Scroll - Joomla Module
-* Version			: 4.3.0
+* Version			: 4.3.2
 * Package			: Joomla 3.10.x - 4.x - 5.x
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -43,14 +43,12 @@ if (!empty($feed) && is_string($feed)) {
 
 <div id="cg_scroll_<?php echo $module->id; ?>" class="cg_scroll" data="<?php echo $module->id ?>">
 <?php
-        if (($module->showtitle == 0) && (!$params->get('rsstitle', 1)) && (!$params->get('rssdesc', 1)) && (!$params->get('rssimage', 1))) {
-            $sh_button = 0;
-        }
+    if (($module->showtitle == 0) && (!$params->get('rsstitle', 1)) && (!$params->get('rssdesc', 1)) && (!$params->get('rssimage', 1))) {
+       $sh_button = 0;
+    }
     if ($sh_button) {
         CGScrollHelper::showDirection($num_sf, $sf_direction);
     }
-    //$iUrl	= isset($feed->image)	? $feed->image	: null;
-    //$iTitle = isset($feed->imagetitle) ? $feed->imagetitle : null;
     $tags_list = $params->get('tags', array());
     $tags = array();
     if (!is_null($tags_list)) {
@@ -79,18 +77,18 @@ if (!empty($feed) && is_string($feed)) {
     if (($sh_button == 1) && ($module->showtitle == 0)) { // show up/down button
         CGScrollHelper::showDirection($num_sf, $sf_direction);
     }
+    // on change l'ordre d'affichage: plus proche en premier
+    if ($params->get('rssdaterev', 1) == 0) {
+        $feed = $feed->reverseItems();
+    }
     ?>
 		<div id="sfdmarqueecontainer" data="<?php echo $module->id ?>">
 		<div id="vmarquee" style="position: absolute;">		
 
 	<!-- Show items -->
-		<ul class="cg-scroll-items" >
-		<?php
-        // on change l'ordre d'affichage: plus proche en premier
-        if ($params->get('rssdaterev', 1) == 0) {
-            $feed = $feed->reverseItems();
-        }
+	<?php
     for ($twice = 0; $twice < 2; $twice++) { // 2.3.5 : continuous scroll effect
+        echo '<ul class="cg-scroll-items-'.$twice.'" >';
         for ($i = 0; $i < $params->get('rssitems', 5); $i++) {
             if (!$feed->offsetExists($i)) {
                 break;
@@ -150,8 +148,8 @@ if (!empty($feed) && is_string($feed)) {
 				</li>
 		<?php }
             }
+        echo '</ul>';
     }?>
-		</ul>
 	</div>
 	</div>
 	</div>
