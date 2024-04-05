@@ -8,6 +8,7 @@
         </note>
         <fix>
             <item>Vertical scroll : rounded clientwidth, adjust width</item>
+            <item>Vertical scroll : add listStyleType circle to items</item>
         </fix>
 	</changelog>
 	<changelog>
