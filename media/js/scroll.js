@@ -1,6 +1,6 @@
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.3.2
+* Version			: 4.3.3
 * Package			: Joomla 3.10.x - 4.x - 5.x
 * copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
@@ -52,7 +52,7 @@ function CGScroll(myid,me,options) {
 		} else { // horizontal scroll
 			items[i].style.float = "left";
 			items[i].style.height = "100%";
-			items[i].style.liststyleType = "circle";
+			items[i].style.listStyleType = "circle";
 		    if (this.options.width == 0) {
 				items[i].style.width = "auto";
 				items[i].style.margin = "12px";
@@ -60,7 +60,7 @@ function CGScroll(myid,me,options) {
 				items[i].style.width = this.options.width;
 				items[i].style.margin = "12px";
 			}
-			$total_width += parseInt(items[i].clientWidth) + 24; // add margin
+			$total_width += items[i].clientWidth + 24 + 1; // add margin + rounded value
 		}
 	}
 	if (this.options.direction != 1) { // horizontal scroll
