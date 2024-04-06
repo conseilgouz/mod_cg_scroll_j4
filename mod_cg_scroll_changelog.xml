@@ -9,6 +9,7 @@
         <fix>
             <item>Vertical scroll : rounded clientwidth, adjust width</item>
             <item>Vertical scroll : add listStyleType circle to items</item>
+            <item>Scroll Article : add language filtering, sort by title</item>
         </fix>
 	</changelog>
 	<changelog>

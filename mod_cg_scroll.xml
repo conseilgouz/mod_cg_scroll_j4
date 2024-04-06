@@ -50,9 +50,8 @@
 					<option
 						value="FEED">SF_TYPEFEED</option>
 				</field>	
-				<field	showon="sf_type:ARTICLE" name="article_id" type="sql" default="1"
+				<field	showon="sf_type:ARTICLE" name="article_id" type="sqlfilter" default="1"
 				label="SF_ARTICLE"	description="SF_ARTICLEDESC"
-				query="SELECT id as article_id, title as value FROM #__content"
 				key_field="article_id"
 				value_field="value"	/>
 				<field name="categories_id" showon="sf_type:LATEST"
