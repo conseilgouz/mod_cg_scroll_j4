@@ -2,12 +2,12 @@
 <extension type="module" version="4.x" client="site" method="upgrade">
 	<name>CG Scroll</name>
 	<author>ConseilGouz</author>
-	<creationDate>2024-04-05</creationDate>
+	<creationDate>2024-04-10</creationDate>
 	<copyright>Copyright (C) 2024 ConseilGouz. All rights reserved.</copyright>
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>www.conseilgouz.com</authorUrl>
-	<version>4.3.3</version>
+	<version>4.3.4</version>
 	<description>CGSCROLLDESC</description>
 	<namespace path="src">ConseilGouz\Module\CGScroll</namespace>
 	<scriptfile>script.php</scriptfile>
@@ -17,6 +17,7 @@
 		<filename>index.html</filename>
 		<folder>src</folder>
 		<folder>tmpl</folder>
+        <folder>layouts</folder>
 	</files>
 	<media destination="mod_cg_scroll" folder="media">
 		<folder>js</folder>
@@ -121,12 +122,12 @@
 				<field 	showon="direction:1"	name="sf_height" 
 					type="text" 	size="50" 	default="200" 
 					label="SF_HEIGHT" 	description="SF_HEIGHTDESC" />
-				<field 	name="sf_delay" 	type="integer" 	default="2"
+				<field 	name="sf_delay" 	type="cgrange" 	default="2" class="limits"
 					label="SF_DELAY" 	description="SF_DELAYDESC" 
-					first="1" last="30" step="1"	/>	
-				<field name="sf_speed" 	type="integer" 	default="1"
-					label="SF_SPEED" description="SF_SPEEDDESC" 
-					first="1" last="10" step="1" />	
+					min="1" max="30" step="1"	/>	
+				<field name="sf_speed" 	type="cgrange" 	default="1"
+					label="SF_SPEED" description="SF_SPEEDDESC"  class="limits"
+					min="1" max="10" step="1" />	
 				<field name="sf_extraslow" 	type="radio" class="btn-group"
 					label="SF_EXTRASLOW" description="SF_EXTRASLOWDESC" 
 					default="0">

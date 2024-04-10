@@ -1,9 +1,9 @@
 <?php
 /**
 * CG Scroll Module  - Joomla 4.x/5.x Module 
-* Version			: 4.2.2
+* Version			: 4.3.4
 * Package			: CG Scroll
-* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
 * license    		: http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
 */
 // No direct access to this file
@@ -69,7 +69,14 @@ class mod_cg_scrollInstallerScript
 		return true;
     }
 	private function postinstall_cleanup() {
-		$obsloteFolders = ['css', 'js','language'];
+        // move layout to its correct directory
+        $f = JPATH_SITE . "/layouts/conseilgouz";
+        if (!is_dir($f)) {
+            mkdir($f);
+        }
+        copy(JPATH_SITE."/modules/mod_cg_scroll/layouts/cgrange.php",$f.'/'."cgrange.php");
+        
+		$obsloteFolders = ['css', 'js','language','layouts'];
 		// Remove plugins' files which load outside of the component. If any is not fully updated your site won't crash.
 		foreach ($obsloteFolders as $folder)
 		{
