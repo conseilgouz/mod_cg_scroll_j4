@@ -1,8 +1,7 @@
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.3.3
 * Package			: Joomla 3.10.x - 4.x - 5.x
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
 var cgscroll = [];
@@ -32,6 +31,7 @@ function CGScroll(myid,me,options) {
 	this.items_ul_0 = document.querySelector(this.me + 'ul.cg-scroll-items-0');
 	this.items_ul_1 = document.querySelector(this.me + 'ul.cg-scroll-items-1');
 	this.container.style.height = this.options.height+"px";
+
 	this.pauseit=this.options.pause;
 	this.delay=parseInt(this.options.delay);
     
@@ -75,6 +75,25 @@ function CGScroll(myid,me,options) {
 }
 CGScroll.prototype.go_scroll = function (myid) {
 	$this = cgscroll[myid];
+
+    var active = false;
+    var currentX;
+    var currentY;
+    var initialX;
+    var initialY;
+    var xOffset = 0;
+    var yOffset = 0;
+    
+    $this.container.addEventListener("touchstart", dragStart, false);
+    $this.container.addEventListener("touchmove", drag, false);
+    document.addEventListener("touchend", dragEnd, false);
+    document.addEventListener("touchcancel", dragEnd, false);
+
+    $this.container.addEventListener("mousedown", dragStart, false);
+    $this.container.addEventListener("mousemove", drag, false);
+    document.addEventListener("mouseup", dragEnd, false);
+    document.addEventListener("mouseleave", dragEnd, false);
+    
 
 	if ($this.options.direction == 1) {
         translate = "translateY"; // up/down
@@ -181,5 +200,57 @@ CGScroll.prototype.go_scroll = function (myid) {
     this.animation1.onfinish = e => {
         e.currentTarget.play(); // restart it
     };
+    
+    function dragStart(e) {
+      if (active) // already active : ignore 
+          return;
+      if (e.type === "touchstart") {
+        initialX = e.touches[0].clientX - xOffset;
+        initialY = e.touches[0].clientY - yOffset;
+      } else {
+        initialX = e.clientX - xOffset;
+        initialY = e.clientY - yOffset;
+      }
+      e.preventDefault();
+      if ((e.target.localName == 'li') || (e.target.id == 'vmarquee') ||
+            (e.currentTarget.id === $this.container.id)) {
+        active = true;
+      }
+    }
+
+    function dragEnd(e) {
+      initialX = currentX;
+      initialY = currentY;
+
+      active = false;
+    }
+
+    function drag(e) {
+      if (active) {
+      
+        e.preventDefault();
+      
+        if (e.type === "touchmove") {
+          currentX = e.touches[0].clientX - initialX;
+          currentY = e.touches[0].clientY - initialY;
+        } else {
+          currentX = e.clientX - initialX;
+          currentY = e.clientY - initialY;
+        }
+
+        xOffset = currentX;
+        yOffset = currentY;
+        cross_marquee = this.querySelector('#vmarquee');
+        id = this.getAttribute('data');
+        $this = cgscroll[id];
+        setTranslate($this,currentX, currentY, cross_marquee);
+      }
+    }
+    function setTranslate($this,xPos, yPos, el) {
+      if ($this.options.direction == 1)    
+        el.style.transform = "translateY("+ yPos + "px)";
+      else 
+        el.style.transform = "translateX(" + xPos + "px)";
+    }    
 }
 
