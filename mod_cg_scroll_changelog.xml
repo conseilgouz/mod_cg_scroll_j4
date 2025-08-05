@@ -8,6 +8,7 @@
         </note>
         <change>
             <item>Becomes a service provider</item>
+            <item>Remove J!3.x code</item>
         </change>
         <fix>
             <item>Feed error returns a RuntimeException</item>
