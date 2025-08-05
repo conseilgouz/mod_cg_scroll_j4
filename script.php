@@ -90,7 +90,7 @@ class mod_cg_scrollInstallerScript
 			Folder::delete($f);
 		}
 		$obsloteFiles = [sprintf("%s/modules/mod_%s/helper.php", JPATH_SITE, $this->extname),
-                         sprintf("%s/modules/mod_%s/mod_%s.php", JPATH_SITE, $this->extname)];
+                         sprintf("%s/modules/mod_%s/mod_%s.php", JPATH_SITE, $this->extname,$this->extname)];
 		foreach ($obsloteFiles as $file)
 		{
 			if (@is_file($file))
