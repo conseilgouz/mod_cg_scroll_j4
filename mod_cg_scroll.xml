@@ -2,18 +2,18 @@
 <extension type="module" version="4.x" client="site" method="upgrade">
 	<name>CG Scroll</name>
 	<author>ConseilGouz</author>
-	<creationDate>2025-07-02</creationDate>
+	<creationDate>2025-08-05</creationDate>
 	<copyright>Copyright (C) 2025 ConseilGouz. All rights reserved.</copyright>
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>www.conseilgouz.com</authorUrl>
-	<version>4.4.0</version>
+	<version>4.5.0</version>
 	<description>CGSCROLLDESC</description>
 	<namespace path="src">ConseilGouz\Module\CGScroll</namespace>
 	<scriptfile>script.php</scriptfile>
 	<changelogurl>https://raw.githubusercontent.com/conseilgouz/mod_cg_scroll_j4/master/mod_cg_scroll_changelog.xml</changelogurl>
 	<files>
-		<filename module="mod_cg_scroll">mod_cg_scroll.php</filename>
+		<folder module="mod_cg_scroll">services</folder>
 		<filename>index.html</filename>
 		<folder>src</folder>
 		<folder>tmpl</folder>

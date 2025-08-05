@@ -1,9 +1,8 @@
 <?php
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.3.0
-* Package			: Joomla 3.10.x - 4.x - 5.x
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* Package			: 4.x - 5.x
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
 // no direct access
@@ -15,14 +14,12 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\Version;
 use ConseilGouz\Module\CGScroll\Site\Helper\CGScrollHelper;
 
-JLoader::registerNamespace('ConseilGouz\Module\CGScroll\Site', JPATH_SITE . '/modules/mod_cg_scroll/src', false, false, 'psr4');
-
-$document 		= Factory::getDocument();
-$baseurl 		= URI::base();
-$modulefield	= ''.URI::base(true).'/media/'.$module->module.'/';
+$document       = Factory::getApplication()->getDocument();
+$baseurl        = URI::base();
+$modulefield    = ''.URI::base(true).'/media/'.$module->module.'/';
 
 //Get this module id
-$nummod_sf		= $module->id;
+$nummod_sf	= $module->id;
 $num_sf		= 'mod'.$nummod_sf;
 
 $sf_type = $params->get('sf_type', 'FEED');
@@ -48,21 +45,12 @@ $sf_slowdown = $params->get('sf_extraslow', 0);
 if ($sf_w_img>='55'): $margin_item_image='padding: 0 '.$sf_wimg_responsive.'% ;'; endif; 
 if ($sf_w_img<='54'): $margin_item_image="margin-right:5px; float:left;"; endif;         
 
-$j = new Version();
-$version=substr($j->getShortVersion(), 0,1); 
-if ($version < "4") { // Joomla 3.x
-	$document->addStyleSheet("//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
-	$document->addStyleSheet($modulefield.'css/scroll_j3.css');
-	$document->addScript($modulefield.'js/scroll.js');
+$wa = Factory::getDocument()->getWebAssetManager();
+$wa->registerAndUseStyle('scroll','media/'.$module->module.'/css/scroll.css');
+if ((bool)Factory::getConfig()->get('debug')) { // Mode debug
+    $document->addScript($modulefield.'js/scroll.js'); 
 } else {
-/** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
-	$wa = Factory::getDocument()->getWebAssetManager();
-	$wa->registerAndUseStyle('scroll','media/'.$module->module.'/css/scroll.css');
-    if ((bool)Factory::getConfig()->get('debug')) { // Mode debug
-        $document->addScript($modulefield.'js/scroll.js'); 
-    } else {
-        $wa->registerAndUseScript('scroll','media/'.$module->module.'/js/scroll.js');
-    }
+    $wa->registerAndUseScript('scroll','media/'.$module->module.'/js/scroll.js');
 }
 if ($sf_type == 'FEED') {
 	$feed = CGScrollHelper::getFeed($params);

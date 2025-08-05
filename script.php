@@ -12,10 +12,11 @@ use Joomla\CMS\Language\Text;
 use Joomla\Filesystem\Folder;
 use Joomla\CMS\Version;
 use Joomla\Filesystem\File;
+use Joomla\Database\DatabaseInterface;
 
 class mod_cg_scrollInstallerScript
 {
-	private $min_joomla_version      = '3.9.0';
+	private $min_joomla_version      = '4.0.0';
 	private $min_php_version         = '7.4';
 	private $name                    = 'CG Scroll';
 	private $exttype                 = 'module';
@@ -114,7 +115,7 @@ class mod_cg_scrollInstallerScript
 			}
 		}
 		// remove obsolete update sites
-		$db = Factory::getDbo();
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true)
 			->delete('#__update_sites')
 			->where($db->quoteName('location') . ' like "%432473037d.url-de-test.ws/%"');
@@ -171,7 +172,7 @@ class mod_cg_scrollInstallerScript
 			JPATH_PLUGINS . '/system/' . $this->installerName . '/language',
 			JPATH_PLUGINS . '/system/' . $this->installerName,
 		]);
-		$db = Factory::getDbo();
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true)
 			->delete('#__extensions')
 			->where($db->quoteName('element') . ' = ' . $db->quote($this->installerName))

@@ -1,28 +1,28 @@
 <?php
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.2.10
 * Package			: Joomla 4.x/5.x
-* copyright 		: Copyright (C) 2023 ConseilGouz. All rights reserved.
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
 // no direct access
 namespace ConseilGouz\Module\CGScroll\Site\Helper;
 defined('_JEXEC') or die;
-use Joomla\CMS\Factory;
-use Joomla\CMS\Version;
-use Joomla\Registry\Registry;
-use Joomla\Utilities\ArrayHelper;
-use Joomla\CMS\Feed\FeedFactory;
-use Joomla\CMS\Router\Route; 
-use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Access\Access;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Feed\FeedFactory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route; 
+use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Content\Site\Helper\RouteHelper; 
 use Joomla\Component\Content\Site\Model\ArticlesModel; 
 use Joomla\Component\Content\Site\Model\ArticleModel; 
-use Joomla\CMS\Language\Text;
-use Joomla\CMS\Access\Access;
-use Joomla\CMS\Uri\Uri;
+use Joomla\Database\DatabaseInterface;
+use Joomla\Registry\Registry;
+use Joomla\Utilities\ArrayHelper;
+
 class CGScrollHelper {
 	//------------------------------FEED DISPLAY------------------------------------------//
 	public static function getFeed($params) {
@@ -34,7 +34,7 @@ class CGScrollHelper {
 			$feed = new FeedFactory;
 			$rssDoc = $feed->getFeed($rssurl);
 		}
-		catch (\Exception $e)
+		catch (\RuntimeException $e)
 		{
 			return Text::_('MOD_FEED_ERR_FEED_NOT_RETRIEVED');
 		}
@@ -53,16 +53,7 @@ class CGScrollHelper {
 	static function getArticle(&$id, $params) {
 		// Get an instance of the generic articles model
 		// Get an instance of the generic articles model
-		$j = new Version();
-		$version=substr($j->getShortVersion(), 0,1); 
-		if ($version >= "4") { // >= Joomla 4.0
-			$model   = new ArticleModel(array('ignore_request' => true));
-		} else { // Joomla 3.x
-			\JLoader::register('ContentModelArticles', JPATH_SITE . '/components/com_content/models/article.php');
-			$model    = \JModelLegacy::getInstance('Article', 'ContentModel', array('ignore_request' => true));
-			$com_path = JPATH_SITE . '/components/com_content/';
-			require_once $com_path . 'helpers/route.php';
-		}
+		$model   = new ArticleModel(array('ignore_request' => true));
         if ($model) {
 		// Set application parameters in model
 		$app       = Factory::getApplication();
@@ -107,11 +98,7 @@ class CGScrollHelper {
 		if ($access || in_array($item->access, $authorised))
 		{
 			// We know that user has the privilege to view the article
-				if ($version >= "4") { // >= Joomla 4.0
-					$item->link = Route::_(RouteHelper::getArticleRoute($item->slug, $item->catid, $item->language));
-				} else {
-					$item->link = \JRoute::_(\ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language));
-				}
+			$item->link = Route::_(RouteHelper::getArticleRoute($item->slug, $item->catid, $item->language));
 		}
 		else
 		{
@@ -144,17 +131,7 @@ class CGScrollHelper {
 	//--------------------------------One category----------------------------------------------//
 	static function getCategory($id, $params) {
 		// Get an instance of the generic articles model
-		$j = new Version();
-		$version=substr($j->getShortVersion(), 0,1); 
-		if ($version >= "4") { // >= Joomla 4.0
-			$articles     = new ArticlesModel(array('ignore_request' => true));
-		} else {
-		// Joomla 3.x
-			\JLoader::register('ContentModelArticles', JPATH_SITE . '/components/com_content/models/articles.php');
-			$articles     = \JModelLegacy::getInstance('Articles', 'ContentModel', array('ignore_request' => true));
-			$com_path = JPATH_SITE . '/components/com_content/';
-			require_once $com_path . 'helpers/route.php';
-		}
+		$articles     = new ArticlesModel(array('ignore_request' => true));
 		if ($articles) {
 		// Set application parameters in model
 		$app       = Factory::getApplication();
@@ -195,11 +172,7 @@ class CGScrollHelper {
 
 			if ($access || in_array($item->access, $authorised))
 			{
-				if ($version >= "4") { // >= Joomla 4.0
-					$item->link = Route::_(RouteHelper::getArticleRoute($item->slug, $item->catid, $item->language));
-				} else {
-					$item->link = \JRoute::_(\ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language));
-				}
+				$item->link = Route::_(RouteHelper::getArticleRoute($item->slug, $item->catid, $item->language));
 			}
 			else
 			{
@@ -229,11 +202,7 @@ class CGScrollHelper {
 
 			if ($item->catid)
 			{
-				if ($version >= "4") { // >= Joomla 4.0
-					$item->displayCategoryLink = Route::_(RouteHelper::getCategoryRoute($item->catid));
-				} else {
-					$item->displayCategoryLink = \JRoute::_(\ContentHelperRoute::getCategoryRoute($item->catid,));
-				}
+				$item->displayCategoryLink = Route::_(RouteHelper::getCategoryRoute($item->catid));
 				$item->displayCategoryTitle = $show_category ? '<a href="' . $item->displayCategoryLink . '">' . $item->category_title . '</a>' : '';
 			}
 			else
@@ -271,7 +240,7 @@ class CGScrollHelper {
 	}
 	// get tag title & tag alias
 	public static function getTags($id) {
-		$db = Factory::getDbo();
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true);
 		// Construct the query
 		$query->select('tags.title as tag, tags.alias as alias ')
@@ -283,19 +252,9 @@ class CGScrollHelper {
 	}
 	//------------------------------Latest articles of one category------------------------------------------//
 	public static function getLatest($id,$params) {
-		// Get the dbo
-		$db = Factory::getDbo();
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		// Get an instance of the generic articles model
-		$j = new Version();
-		$version=substr($j->getShortVersion(), 0,1); 
-		if ($version >= "4") { // Joomla 4.0
-			$model    = new ArticlesModel(array('ignore_request' => true));
-		} else {// Joomla 3.x
-			\JLoader::register('ContentModelArticles', JPATH_SITE . '/components/com_content/models/articles.php');
-			$model     = \JModelLegacy::getInstance('Articles', 'ContentModel', array('ignore_request' => true));
-			$com_path = JPATH_SITE . '/components/com_content/';
-			require_once $com_path . 'helpers/route.php';
-		}
+		$model    = new ArticlesModel(array('ignore_request' => true));
 		// Set application parameters in model
 		$app       = Factory::getApplication();
 		$appParams = $app->getParams();
@@ -365,11 +324,7 @@ class CGScrollHelper {
 			if ($access || in_array($item->access, $authorised))
 			{
 				// We know that user has the privilege to view the article
-				if ($version >= "4") { // Joomla 4.0
-					$item->link = Route::_(RouteHelper::getArticleRoute($item->slug, $item->catid, $item->language));
-				} else {
-					$item->link = \JRoute::_(\ContentHelperRoute::getArticleRoute($item->slug, $item->catid, $item->language));
-				}
+				$item->link = Route::_(RouteHelper::getArticleRoute($item->slug, $item->catid, $item->language));
 			}
 			else
 			{
@@ -472,7 +427,7 @@ class CGScrollHelper {
 		return false;
 	}
 	private static function getModuleById($id) {
-		$db = Factory::getDbo();
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true)
 			->select('m.id, m.title, m.module, m.position, m.content, m.showtitle, m.params')
 			->from('#__modules AS m')

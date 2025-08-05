@@ -2,6 +2,20 @@
 	<changelog>
 		<element>mod_cg_scroll</element>
 		<type>Module</type>
+		<version>4.5.0</version>
+        <note>
+            <item>Update : 05/08/2025</item>
+        </note>
+        <change>
+            <item>Becomes a service provider</item>
+        </change>
+        <fix>
+            <item>Feed error returns a RuntimeException</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>mod_cg_scroll</element>
+		<type>Module</type>
 		<version>4.4.0</version>
         <note>
             <item>Update : 15/03/2025</item>

@@ -1,9 +1,8 @@
 <?php
 /**
 * CG Scroll - Joomla Module
-* Version			: 4.3.4
-* Package			: Joomla 3.10.x - 4.x - 5.x
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* Package			: Joomla 4.x - 5.x
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
 
@@ -55,7 +54,7 @@ $attributes = [
     !empty($onchange) ? 'onchange="' . $onchange . '"' : '',
     !empty($max) ? 'max="' . $max . '"' : '',
     !empty($step) ? 'step="' . $step . '"' : '',
-    !empty($min) ? 'min="' . $min . '"' : '',
+    gettype($min) !== 'NULL' ? 'min="' . $min . '"' : '',
     $autofocus ? 'autofocus' : '',
     $dataAttribute,
 ];
