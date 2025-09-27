@@ -1,7 +1,7 @@
 <?php
 /**
 * CG Scroll - Joomla Module
-* Package			: Joomla 3.10.x - 4.x - 5.x
+* Package			: Joomla 3.10.x - 4.x - 5.x - 6.x
 * copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
@@ -24,7 +24,7 @@ class SqlfilterField extends SqlField
     protected function getOptions()
     {
         $app = Factory::getApplication();
-        $input = $app->input;
+        $input = $app->getInput();
         $moduleid = $input->get('id');
         $model = new ModuleModel(array('ignore_request' => true));
         $module = $model->getItem($moduleid);

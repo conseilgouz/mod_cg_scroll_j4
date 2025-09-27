@@ -2,6 +2,20 @@
 	<changelog>
 		<element>mod_cg_scroll</element>
 		<type>Module</type>
+		<version>4.6.0</version>
+        <note>
+            <item>Update : 27/09/2025</item>
+        </note>
+        <change>
+            <item>Use ConseilGouz Library</item>
+        </change>
+        <fix>
+            <item>Joomla 6 compatibility</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>mod_cg_scroll</element>
+		<type>Module</type>
 		<version>4.5.3</version>
         <note>
             <item>Update : 05/08/2025</item>

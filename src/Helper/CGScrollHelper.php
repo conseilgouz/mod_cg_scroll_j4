@@ -180,9 +180,9 @@ class CGScrollHelper
 
                     if (isset($menuitems[0])) {
                         $Itemid = $menuitems[0]->id;
-                    } elseif ($app->input->getInt('Itemid') > 0) {
+                    } elseif ($app->getInput()->getInt('Itemid') > 0) {
                         // Use Itemid from requesting page only if there is no existing menu
-                        $Itemid = $app->input->getInt('Itemid');
+                        $Itemid = $app->getInput()->getInt('Itemid');
                     }
 
                     $item->link = Route::_('index.php?option=com_users&view=login&Itemid=' . $Itemid);
@@ -415,7 +415,7 @@ class CGScrollHelper
     }
     public static function getAjax()
     {
-        $input = Factory::getApplication()->input;
+        $input = Factory::getApplication()->getInput();
         $id = $input->get('id');
         $module = self::getModuleById($id);
         $params = new Registry($module->params);

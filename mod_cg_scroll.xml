@@ -2,12 +2,12 @@
 <extension type="module" version="4.x" client="site" method="upgrade">
 	<name>CG Scroll</name>
 	<author>ConseilGouz</author>
-	<creationDate>2025-08-05</creationDate>
+	<creationDate>2025-09-27</creationDate>
 	<copyright>Copyright (C) 2025 ConseilGouz. All rights reserved.</copyright>
 	<license>https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>www.conseilgouz.com</authorUrl>
-	<version>4.5.3</version>
+	<version>4.6.0</version>
 	<description>CGSCROLLDESC</description>
 	<namespace path="src">ConseilGouz\Module\CGScroll</namespace>
 	<scriptfile>script.php</scriptfile>
@@ -33,8 +33,8 @@
 	
 	<config>
 		<fields name="params">
-			<fieldset name="basic" addfieldprefix="ConseilGouz\Module\CGScroll\Site\Field">
-				<field name="version" type="version"  margintop="-3em" extension="mod_cg_scroll"/>	
+			<fieldset name="basic" addfieldprefix="">
+				<field name="version" type="ConseilGouz\Library\Field\Version"  margintop="-3em" extension="mod_cg_scroll"/>	
 				<field
 					name="sf_type"
 					type="list"
@@ -51,7 +51,7 @@
 					<option
 						value="FEED">SF_TYPEFEED</option>
 				</field>	
-				<field	showon="sf_type:ARTICLE" name="article_id" type="sqlfilter" default="1"
+				<field	showon="sf_type:ARTICLE" name="article_id" type="ConseilGouz\Module\CGScroll\Site\Field\Sqlfilter" default="1"
 				label="SF_ARTICLE"	description="SF_ARTICLEDESC"
 				key_field="article_id"
 				value_field="value"	/>
@@ -122,10 +122,10 @@
 				<field 	showon="direction:1"	name="sf_height" 
 					type="text" 	size="50" 	default="200" 
 					label="SF_HEIGHT" 	description="SF_HEIGHTDESC" />
-				<field 	name="sf_delay" 	type="cgrange" 	default="2" class="limits"
+				<field 	name="sf_delay" 	type="ConseilGouz\Library\Field\Cgrange" 	default="2" class="limits"
 					label="SF_DELAY" 	description="SF_DELAYDESC" 
 					min="1" max="30" step="1"	/>	
-				<field name="sf_speed" 	type="cgrange" 	default="1"
+				<field name="sf_speed" 	type="ConseilGouz\Library\Field\Cgrange" 	default="1"
 					label="SF_SPEED" description="SF_SPEEDDESC"  class="limits"
 					min="1" max="10" step="1" />	
 				<field name="sf_extraslow" 	type="radio" class="btn-group"

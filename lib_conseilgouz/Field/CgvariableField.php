@@ -1,20 +1,20 @@
 <?php
 /**
-* CG Scroll - Joomla Module
-* Package			: Joomla 3.10.x - 4.x - 5.x
-* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
-* license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
-*/
+ * CG Variable field for Joomla 4.x/5.x/6.x
+ *
+ * @author     ConseilgGouz
+ * @copyright (C) 2025 www.conseilgouz.com. All Rights Reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
 
-namespace ConseilGouz\Module\CGScroll\Site\Field;
+namespace ConseilGouz\Library\Field;
 
 defined('_JEXEC') or die;
-use Joomla\CMS\Form\Field\RangeField;
-use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Field\TextField;
 
-class CgrangeField extends RangeField
+class CgvariableField extends TextField
 {
-    public $type = 'Cgrange';
+    public $type = 'Cgvariable';
 
     /**
      * Name of the layout being used to render the field
@@ -22,7 +22,23 @@ class CgrangeField extends RangeField
      * @var    string
      * @since  3.7
      */
-    protected $layout = 'conseilgouz.cgrange';
+    protected $layout = 'cgvariable';
+
+    /**
+     * Unit
+     *
+     * @var    string
+     */
+
+    protected $unit = "";
+
+    protected function getLayoutPaths()
+    {
+        $paths = parent::getLayoutPaths();
+        $paths[] = JPATH_SITE.'/libraries/conseilgouz/layouts';
+        return $paths;
+
+    }
 
     /**
      * Method to get the field input markup.
@@ -33,11 +49,6 @@ class CgrangeField extends RangeField
      */
     protected function getInput()
     {
-        /** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
-        $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-        $wa->registerAndUseStyle('cgrange', 'media/mod_cg_scroll/css/cgrange.css');
-        $wa->registerAndUseScript('cgrange', 'media/mod_cg_scroll/js/cgrange.js');
-
         return $this->getRenderer($this->layout)->render($this->collectLayoutData());
     }
     /**
@@ -55,7 +66,7 @@ class CgrangeField extends RangeField
         }
 
         $this->layoutData = $this->getLayoutData();
-
         return $this->layoutData;
     }
+
 }

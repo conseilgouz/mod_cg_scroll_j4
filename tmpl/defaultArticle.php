@@ -1,9 +1,8 @@
 <?php
 /**
 * CG Scroll - Joomla Module 
-* Version			: 4.3.2
-* Package			: Joomla 3.10.x - 4.x - 5.x
-* copyright 		: Copyright (C) 2024 ConseilGouz. All rights reserved.
+* Package			: Joomla 3.10.x - 4.x - 5.x - 6.x
+* copyright 		: Copyright (C) 2025 ConseilGouz. All rights reserved.
 * license    		: https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL
 */
 // no direct access
@@ -17,7 +16,7 @@ JLoader::registerNamespace('ConseilGouz\Module\CGScroll\Site', JPATH_SITE . '/mo
 ?>
 
 <?php
-	$lang = Factory::getLanguage();
+	$lang = Factory::getApplication()->getLanguage();
 	$myrtl = $params->get('rssrtl');
 	$direction = " ";
 	if ($lang->isRTL() && $myrtl == 0) {
